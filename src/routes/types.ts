@@ -1,5 +1,9 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 export type RootStackParamList = {
-    Home: undefined; // Tela Home não recebe parâmetros
-    Route: undefined; // Tela Route não recebe parâmetros
-  };
-  
+  Login: undefined;
+  Home: undefined;
+  Route: undefined;
+};
+
+export type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
