@@ -11,7 +11,7 @@ export const HeaderContainer = styled.View`
   justify-content: center;
 `;
 
-
+// Container do logo
 export const LogoContainer = styled.View`
   width: 100px;
   height: 100px;
@@ -31,12 +31,27 @@ export const WelcomeText = styled.Text`
   margin-top: 10px;
 `;
 
-
-
+// Texto secundário abaixo das boas-vindas
 export const DateSubText = styled.Text`
   font-size: 14px;
   color: #777;
   margin-top: 4px;
+`;
+
+// Data do dia com formatação distinta
+export const DateHeaderText = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
+`;
+
+// Texto da data central
+export const DateText = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-horizontal: 10px;
 `;
 
 // Card de status
@@ -58,6 +73,13 @@ export const StatusItem = styled.View`
 // Título de cada status
 export const StatusTitle = styled.Text`
   font-size: 18px;
+  font-weight: bold;
+  color: #333;
+`;
+
+// Título da loja do dia
+export const LojaDay = styled.Text`
+  font-size: 16px;
   font-weight: bold;
   color: #333;
 `;
@@ -93,4 +115,13 @@ export const FloatingButton = styled.TouchableOpacity`
   height: 60px;
   border-radius: 30px;
   background-color: #ff7e5f;
+`;
+
+// Container das setas e da data
+export const DateNavigationContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;

@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Alert, Image, TouchableOpacity, View, Dimensions } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 import { styles } from './sombras';
 import { Container, Title, LogoContainer, Input, ButtonText, WordOfTheDayTitle, BibleMessageContainer, BibleMessageText } from './LoginStyles';
 
@@ -13,12 +14,11 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigation = useNavigation(); // Adicionado para navegação
+
   const handleLogin = () => {
-    if (cpf && password) {
-      Alert.alert('Login', `CPF: ${cpf}\nSenha: ${password}`);
-    } else {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos');
-    }
+    // Simulação de login sem validação
+    navigation.navigate('Home'); // Navega para a tela "Home"
   };
 
   const formatCpf = (text: string) => {
