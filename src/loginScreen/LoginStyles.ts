@@ -50,7 +50,7 @@ export const LogoContainer = styled.View`
 
 // Estiliza os inputs de CPF e Senha
 export const Input = styled.TextInput`
-  width: 85%;
+  width: 100%;
   padding: 12px;
   margin-bottom: 20px;
   border-radius: 30px;

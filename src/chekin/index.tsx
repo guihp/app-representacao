@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, View } from 'react-native';
+import { View } from 'react-native';
 import { useFonts, Poppins_700Bold, Poppins_400Regular } from '@expo-google-fonts/poppins';
 import {
   Container,
@@ -20,15 +20,13 @@ import { RootStackParamList } from '../routes/types';
 type Props = NativeStackScreenProps<RootStackParamList, 'CheckIn'>;
 
 const CheckInScreen: React.FC<Props> = ({ navigation }) => {
-    const [fontsLoaded] = useFonts({
-      Poppins_700Bold,
-      Poppins_400Regular,
-    });
-  
-
+  const [fontsLoaded] = useFonts({
+    Poppins_700Bold,
+    Poppins_400Regular,
+  });
 
   const handleCheckIn = () => {
-    Alert.alert('Check-In', 'Check-In realizado com sucesso!');
+    navigation.navigate('Justification'); // Navega para a tela de justificativa
   };
 
   const handleCancel = () => {
@@ -36,7 +34,7 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleJustify = () => {
-    Alert.alert('Justificar', 'Abrindo a tela de justificativa.');
+    navigation.navigate('Justification'); // Navega para a tela de justificativa
   };
 
   return (
@@ -55,7 +53,7 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
         }}
       >
         <HeaderText>Faça Check-in</HeaderText>
-        <HeaderSubtitle>e inicie as tarefas</HeaderSubtitle>
+        <HeaderSubtitle>e inicie as tarefas </HeaderSubtitle>
       </View>
 
       {/* Informações de confirmação */}
@@ -73,7 +71,7 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
       </CancelButton>
 
       {/* Justificativa */}
-      <JustifyText onPress={handleJustify}>Justificar</JustifyText>
+      <JustifyText onPress={handleJustify}>Justificar </JustifyText>
     </Container>
   );
 };

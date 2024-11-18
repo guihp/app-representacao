@@ -4,15 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from '../loginScreen/index';
 import HomeScreen from '../home/index';
 import RouteScreen from '../roteiro/index';
-import CheckInScreen from '../chekin/index'; // Importando a nova página
+import CheckInScreen from '../chekin/index';
+import JustificationScreen from '../justifcativa/index';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-// Adicionando a rota da nova tela
+// Definindo todas as rotas, incluindo a nova tela de justificativa
 type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   Route: undefined;
-  CheckIn: undefined; // Definindo a nova rota
+  CheckIn: undefined;
+  Justification: undefined; // Adicionando a nova rota
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
@@ -39,8 +41,13 @@ const AppRoutes = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="CheckIn" // Nome da rota
-          component={CheckInScreen} // Componente da nova tela
+          name="CheckIn"
+          component={CheckInScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Justification" // Nome da nova rota
+          component={JustificationScreen} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
       </Stack.Navigator>

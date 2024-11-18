@@ -83,11 +83,15 @@ const RouteScreen: React.FC<Props> = ({ navigation }) => {
     });
   };
 
+  const handleHome = () => {
+    navigation.navigate('Home'); // Navega para a tela de justificativa
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
       {/* Cabeçalho */}
       <HeaderContainer>
-        <BackIcon onPress={() => navigation.goBack()}>
+        <BackIcon onPress={handleHome}>
           <Icon name="arrow-left" size={24} color="#fff" />
         </BackIcon>
         <HeaderTitle>Meu roteiro</HeaderTitle>
