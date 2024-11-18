@@ -108,3 +108,58 @@ export const MonthTitle = styled.Text`
   text-align: center;
   margin-bottom: 5px; /* Espaçamento entre o mês e a barra de navegação */
 `;
+
+// Estilo do popup
+export const PopupContainer = styled.Modal``;
+
+export const PopupOverlay = styled.View`
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PopupContent = styled.View`
+  width: 90%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  align-items: center;
+`;
+
+export const PopupHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
+export const PopupCloseButton = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+`;
+
+export const PopupTitle = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+`;
+
+export const FilterOption = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0;
+  padding-bottom: 5px;
+  border-bottom-width: 1px;
+  border-bottom-color: #FF7E5F;
+`;
+
+export const FilterOptionText = styled.Text`
+  font-size: 16px;
+  color: #333;
+`;
+
+export const ToggleSwitch = styled.Switch``;
