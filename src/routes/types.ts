@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Route: undefined;
   CheckIn: undefined; 
   Justification: undefined; 
+  MainIndustries: undefined; 
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Home'>;

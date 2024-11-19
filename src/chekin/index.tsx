@@ -26,7 +26,7 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
   });
 
   const handleCheckIn = () => {
-    navigation.navigate('Justification'); // Navega para a tela de justificativa
+    navigation.navigate('MainIndustries'); // Navega para a tela de chekin
   };
 
   const handleCancel = () => {
