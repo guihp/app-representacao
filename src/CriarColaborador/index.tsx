@@ -31,6 +31,10 @@ import {
 } from './CriarColaborador';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
+import { saveUser } from '../services/userService';
+
+
+
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CriarColaboradores'>;
 
@@ -60,32 +64,56 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
     setConfirmModalVisible(true); // Abre o modal de confirmação
   };
 
-  const handleConfirmSave = () => {
-    setConfirmModalVisible(false); // Fecha o modal de confirmação
-    Alert.alert(
-      'Sucesso',
-      'Cadastro realizado com sucesso! Deseja realizar outro cadastro?',
-      [
-        {
-          text: 'Não',
-          onPress: () => navigation.goBack(), // Retorna à página anterior
-        },
-        {
-          text: 'Sim',
-          onPress: () => {
-            setName('');
-            setEmail('');
-            setPhone('');
-            setCpf('');
-            setAddress('');
-            setPassword('');
-            setSelectedCargo('');
-            setSelectedTelas([]);
-          }, // Limpa os campos
-        },
-      ]
-    );
+  const handleConfirmSave = async () => {
+    try {
+      // Dados do colaborador
+      const userData = {
+        nome: name,
+        email,
+        telefone: phone,
+        cpf,
+        senha: password,
+        cargo: selectedCargo,
+      };
+  
+      // Chamar a função saveUser para salvar no banco e enviar ao webhook
+      const response = await saveUser(userData);
+  
+      if (response.success) {
+        setConfirmModalVisible(false);
+        Alert.alert(
+          'Sucesso',
+          'Cadastro realizado com sucesso! Deseja realizar outro cadastro?',
+          [
+            {
+              text: 'Não',
+              onPress: () => navigation.goBack(), // Retorna à página anterior
+            },
+            {
+              text: 'Sim',
+              onPress: () => {
+                // Limpa os campos
+                setName('');
+                setEmail('');
+                setPhone('');
+                setCpf('');
+                setAddress('');
+                setPassword('');
+                setSelectedCargo('');
+                setSelectedTelas([]);
+              },
+            },
+          ]
+        );
+      } else {
+        Alert.alert('Erro', response.message || 'Erro ao salvar os dados.');
+      }
+    } catch (err) {
+      console.error(err);
+      Alert.alert('Erro', 'Ocorreu um problema ao cadastrar o colaborador.');
+    }
   };
+  
 
   const handleCancel = () => {
     Alert.alert(

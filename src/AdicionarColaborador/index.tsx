@@ -25,7 +25,7 @@ const ColaboradoresScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleNavigateToAddColaborador = () => {
-    alert('Navegar para Adicionar Colaborador'); // Alterar para a navegação real quando implementada
+    navigation.navigate('CriarColaboradores');
   };
 
   return (
