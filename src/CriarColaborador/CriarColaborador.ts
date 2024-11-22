@@ -34,26 +34,6 @@ export const Input = styled.TextInput`
   border: 1px solid #ccc;
 `;
 
-export const ActionButtonContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 30px;
-`;
-
-export const ActionButton = styled.TouchableOpacity<{ color: string }>`
-  background-color: ${({ color }) => color};
-  padding: 15px;
-  border-radius: 8px;
-  align-items: center;
-  width: 48%;
-`;
-
-export const ActionButtonText = styled.Text`
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-`;
-
 // Botão para abrir modais
 export const ModalButton = styled.TouchableOpacity`
   background-color: white;
@@ -80,17 +60,45 @@ export const ModalContainer = styled.View`
 `;
 
 export const ModalContent = styled.View`
-  width: 80%;
+  width: 90%; /* Modal mais largo */
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  align-items: center;
+  padding: 30px;
+  border-radius: 10px;
 `;
 
 export const ModalTitle = styled.Text`
-  font-size: 18px;
+  font-size: 22px; /* Título maior para melhor visibilidade */
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
+`;
+
+export const ModalText = styled.Text`
+  font-size: 20px; /* Maior visibilidade para o conteúdo */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+`;
+
+export const ModalButtonsContainer = styled.View`
+  flex-direction: row; /* Botões lado a lado */
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+export const ModalButtonConfirm = styled.TouchableOpacity<{ backgroundColor?: string }>`
+  background-color: ${({ backgroundColor }) => backgroundColor || '#ccc'};
+  padding: 15px 25px;
+  border-radius: 8px;
+  flex: 1; /* Botões com tamanhos iguais */
+  align-items: center;
+  margin: 0 10px; /* Espaçamento entre os botões */
+`;
+
+export const ModalButtonTextConfirm = styled.Text`
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
 `;
 
 export const ModalOption = styled.TouchableOpacity`
@@ -109,7 +117,7 @@ export const ModalOptionText = styled.Text`
 export const CloseModalButton = styled.TouchableOpacity`
   margin-top: 20px;
   padding: 10px;
-  background-color: #ff7e5f;
+  background-color: red;
   border-radius: 8px;
 `;
 
@@ -117,4 +125,50 @@ export const CloseModalButtonText = styled.Text`
   color: white;
   font-weight: bold;
   font-size: 16px;
+  text-align: center;
+`;
+
+// Botões de ação (Salvar e Cancelar)
+export const ActionButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+`;
+
+export const ActionButton = styled.TouchableOpacity<{ color: string }>`
+  background-color: ${({ color }) => color};
+  padding: 15px;
+  border-radius: 8px;
+  align-items: center;
+  width: 48%;
+`;
+
+export const ActionButtonText = styled.Text`
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+// Checkbox Container for Personalizado
+export const CheckboxContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+export const CheckboxItem = styled.TouchableOpacity<{ checked?: boolean }>`
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 10px;
+  border-width: 1px;
+  border-color: ${({ checked }) => (checked ? '#ff7e5f' : '#ccc')};
+  background-color: ${({ checked }) => (checked ? '#ff7e5f' : 'white')};
+`;
+
+export const CheckboxText = styled.Text`
+  font-size: 16px;
+  color: #333;
 `;
