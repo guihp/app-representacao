@@ -21,11 +21,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
+import Menu from './menu/index'; // Import do Menu
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isMenuVisible, setIsMenuVisible] = useState(false); // Estado para controlar a visibilidade do menu
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('pt-BR', {
@@ -49,6 +51,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleNavigateToRoute = () => {
     navigation.navigate('Route'); // Navega para a tela "Route"
+  };
+
+  const toggleMenu = () => {
+    setIsMenuVisible(!isMenuVisible); // Alterna a visibilidade do menu
   };
 
   return (
@@ -114,9 +120,13 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
         </ViewRouteButton>
       </View>
 
-      <FloatingButton onPress={() => Alert.alert('Menu', 'Acessando o menu!')}>
+      <FloatingButton onPress={toggleMenu}>
         <Icon name="menu" size={33} color="#fff" style={{ marginLeft: 14, marginTop: 13 }} />
       </FloatingButton>
+
+      {/* Renderiza o menu lateral */}
+      {isMenuVisible && <Menu onClose={toggleMenu} />}
+
     </View>
   );
 };
