@@ -53,3 +53,38 @@ export async function updateUserStatus(userId: number, status: boolean) {
     return { success: false, message: error.message };
   }
 }
+
+type Collaborator = {
+    id: number;
+    nome: string;
+    email: string;
+    telefone: string;
+    cpf: string;
+    cargo: string;
+    cidade: string;
+    estado_id: string;
+    nivel_acesso: string;
+    status: boolean;
+  };
+  
+// Função para atualizar todos os detalhes de um usuário
+export async function updateUserDetails(userId: number, userDetails: Partial<Collaborator>) {
+  try {
+    // Atualizando os detalhes do usuário no Supabase
+    const { data, error } = await supabase
+      .from('usuarios')
+      .update(userDetails) // Atualiza os campos fornecidos
+      .eq('id', userId); // Filtra pelo ID do usuário
+
+    if (error) {
+      console.error('Erro ao atualizar detalhes do usuário:', error.message);
+      throw new Error('Erro ao atualizar detalhes do usuário no banco de dados.');
+    }
+
+    console.log('Detalhes do usuário atualizados:', data);
+    return { success: true, data };
+  } catch (error: any) {
+    console.error('Erro ao atualizar detalhes:', error.message);
+    return { success: false, message: error.message };
+  }
+}

@@ -13,7 +13,7 @@ import {
   Overlay,
 } from './menuStyles';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../routes/types'; // Certifique-se de que o caminho para o types está correto
+import { RootStackParamList } from '../../routes/types'; 
 
 type MenuProps = {
   onClose: () => void; // Função para fechar o menu
@@ -25,6 +25,10 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
   const navigateToCollaborators = () => {
     onClose(); // Fecha o menu
     navigation.navigate('Collaborators'); // Navega para a tela de Colaboradores
+  };
+
+  const handleSearch = () => {
+    navigation.navigate('FazerPesquisa');
   };
 
   return (
@@ -82,6 +86,18 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
               <Icon name="account-plus-outline" size={24} color="#FF7E5F" />
             </MenuItemIcon>
             <MenuText>Adicionar Colaborador</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
+
+        <MenuItem onPress={handleSearch}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <Icon name="magnify" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>Fazer Pesquisa</MenuText>
           </MenuItemLeft>
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />

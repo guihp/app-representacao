@@ -10,6 +10,7 @@ export type RootStackParamList = {
   Collaborators: undefined; 
   CriarColaboradores: undefined;
   VerColaboradores: undefined;
+  FazerPesquisa: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
