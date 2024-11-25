@@ -2,8 +2,8 @@ import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
 
 // Configurando o cliente do Supabase
-const supabaseUrl = 'https://ntufpfbsdqxgncasarkn.supabase.co'; // Substitua pelo URL do seu projeto Supabase
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dWZwZmJzZHF4Z25jYXNhcmtuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE0OTc4NjEsImV4cCI6MjA0NzA3Mzg2MX0.EeIWbSAgJ5NmtDA3Pi85uiwt3w8noPwQnLsn7wK-sJ8'; // Substitua pela chave de serviço do Supabase
+const supabaseUrl = 'https://ntufpfbsdqxgncasarkn.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50dWZwZmJzZHF4Z25jYXNhcmtuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE0OTc4NjEsImV4cCI6MjA0NzA3Mzg2MX0.EeIWbSAgJ5NmtDA3Pi85uiwt3w8noPwQnLsn7wK-sJ8';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const WEBHOOK_URL = 'https://n8n-sgo8ksokg404ocg8sgc4sooc.vemprajogo.com/webhook/EnviarMensagemSenhaUsuario'; // Substitua pelo URL do seu webhook

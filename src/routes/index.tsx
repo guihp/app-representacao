@@ -9,6 +9,7 @@ import JustificationScreen from '../justifcativa/index';
 import MainIndustriesScreen from '../mainIndustrias/index'; 
 import ColaboradoresScreen from '../AdicionarColaborador/index';
 import AdicionarColaborador from '../CriarColaborador/index'
+import VerColaboradores from '../VerColaboradores/index';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Definindo todas as rotas, incluindo a nova tela
@@ -21,6 +22,7 @@ type RootStackParamList = {
   MainIndustries: undefined;
   Collaborators: undefined; 
   CriarColaboradores: undefined;
+  VerColaboradores: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
@@ -69,6 +71,11 @@ const AppRoutes = () => {
         <Stack.Screen
           name="CriarColaboradores" // Nome da nova rota
           component={AdicionarColaborador} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="VerColaboradores" // Nome da nova rota
+          component={VerColaboradores} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
       </Stack.Navigator>
