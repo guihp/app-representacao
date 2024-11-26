@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
+import * as Crypto from 'expo-crypto';
 
 // Configurando o cliente do Supabase
 const supabaseUrl = 'https://ntufpfbsdqxgncasarkn.supabase.co';
@@ -7,6 +8,24 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const WEBHOOK_URL = 'https://n8n-sgo8ksokg404ocg8sgc4sooc.vemprajogo.com/webhook/EnviarMensagemSenhaUsuario'; // Substitua pelo URL do seu webhook
+
+// Função para gerar hash da senha
+export const hashPassword = async (password: string): Promise<string> => {
+  const saltArray = await Crypto.getRandomBytesAsync(16); // 16 bytes = 128 bits
+  const salt = Array.from(saltArray).map((b) => b.toString(16).padStart(2, '0')).join('');
+
+  // Combina a senha com o salt
+  const passwordWithSalt = password + salt;
+
+  // Gera o hash (SHA-256)
+  const hash = await Crypto.digestStringAsync(
+    Crypto.CryptoDigestAlgorithm.SHA256,
+    passwordWithSalt
+  );
+
+  // Retorna o hash concatenado com o salt
+  return `${salt}$${hash}`;
+};
 
 // Função para salvar usuário no Supabase
 export async function saveUser(data: {
@@ -23,6 +42,12 @@ export async function saveUser(data: {
   const nivelAcesso = 'Tela Padrão Promotor'; // Nível de acesso padrão
 
   try {
+    // Salvar a senha original para o webhook antes de gerar o hash
+    const originalPassword = data.senha;
+
+    // Gera o hash da senha
+    const hashedPassword = await hashPassword(originalPassword);
+
     // Inserindo no Supabase
     const { data: supabaseData, error } = await supabase
       .from('usuarios') // Nome da tabela no Supabase
@@ -32,7 +57,7 @@ export async function saveUser(data: {
           email: data.email,
           telefone: data.telefone,
           cpf: data.cpf,
-          senha: data.senha,
+          senha: hashedPassword, // Armazena apenas o hash no banco
           cargo: data.cargo,
           estado_id: defaultEstado, // Estado padrão
           cidade: defaultCidade, // Cidade padrão
@@ -48,13 +73,13 @@ export async function saveUser(data: {
 
     console.log('Dados salvos no Supabase:', supabaseData);
 
-    // Enviando para o webhook
+    // Enviando ao webhook com a senha original
     const webhookPayload = {
       nome: data.nome,
       email: data.email,
       telefone: data.telefone,
       cpf: data.cpf,
-      senha: data.senha,
+      senha: originalPassword, // Envia a senha original ao webhook
       cargo: data.cargo,
       cidade: defaultCidade,
       estado: defaultEstado,

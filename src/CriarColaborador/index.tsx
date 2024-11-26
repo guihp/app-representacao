@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import { hashPassword } from '../services/cryptoUtils'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import {
   Container,
@@ -66,6 +67,7 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
 
   const handleConfirmSave = async () => {
     try {
+
       // Dados do colaborador
       const userData = {
         nome: name,

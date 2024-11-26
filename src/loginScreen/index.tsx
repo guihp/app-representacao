@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
 import { styles } from './sombras';
+import { loginUser } from '../services/auth/authService';
 import {
   Container,
   Title,
@@ -18,18 +19,12 @@ import {
   BibleMessageText,
 } from './LoginStyles';
 
-const { height } = Dimensions.get('window'); // Obter a altura da tela
-
 const LoginScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Login'>>();// Usando o tipo NavigationProps para definir a navegação
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Login'>>(); // Usando o tipo NavigationProps para definir a navegação
 
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleLogin = () => {
-    navigation.navigate('Home'); // Navegar para a tela Home
-  };
 
   const formatCpf = (text: string) => {
     const cpfFormatted = text
@@ -38,6 +33,29 @@ const LoginScreen = () => {
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
     setCpf(cpfFormatted);
+  };
+
+  const handleLogin = async () => {
+    try {
+      // Validação de CPF e senha
+      if (!cpf || !password) {
+        Alert.alert('Erro', 'Por favor, preencha todos os campos.');
+        return;
+      }
+
+      // Chama a função de autenticação
+      const response = await loginUser(cpf, password);
+
+      if (response.success) {
+        Alert.alert('Sucesso', 'Login realizado com sucesso!');
+        navigation.navigate('Home'); // Navegar para a tela Home
+      } else {
+        Alert.alert('Erro', response.message || 'CPF ou senha incorretos.');
+      }
+    } catch (error: any) {
+      console.error('Erro no login:', error.message);
+      Alert.alert('Erro', 'Ocorreu um problema ao realizar o login.');
+    }
   };
 
   return (
