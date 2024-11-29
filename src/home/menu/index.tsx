@@ -13,7 +13,9 @@ import {
   Overlay,
 } from './menuStyles';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../routes/types'; 
+import { RootStackParamList } from '../../routes/types';
+import { useDispatch } from 'react-redux'; // Importa o hook useDispatch para o Redux
+import { logout } from '../../redux/actions/userActions'; // Importa a ação de logout
 
 type MenuProps = {
   onClose: () => void; // Função para fechar o menu
@@ -21,6 +23,7 @@ type MenuProps = {
 
 const Menu: React.FC<MenuProps> = ({ onClose }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>(); // Use NavigationProp para garantir os tipos corretos
+  const dispatch = useDispatch(); // Hook para disparar ações do Redux
 
   const navigateToCollaborators = () => {
     onClose(); // Fecha o menu
@@ -28,7 +31,18 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
   };
 
   const handleSearch = () => {
+    onClose();
     navigation.navigate('FazerPesquisa');
+  };
+
+  const handleLogout = () => {
+    // Dispara a ação de logout no Redux
+    dispatch(logout());
+    onClose(); // Fecha o menu
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }], // Redireciona para a tela de Login
+    });
   };
 
   return (
@@ -105,7 +119,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
         </MenuItem>
 
         {/* Opção de sair */}
-        <MenuItem onPress={() => alert('Sair')}>
+        <MenuItem onPress={handleLogout}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="logout" size={24} color="#FF7E5F" />

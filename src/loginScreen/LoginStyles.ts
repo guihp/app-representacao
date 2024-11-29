@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Platform, StatusBar } from 'react-native';
 
-// Container principal com fundo degradê que cobre o topo da tela
+// Container principal com fundo branco
 export const Container = styled.View`
   flex: 1;
   background-color: #ffffff;
@@ -60,11 +60,11 @@ export const Input = styled.TextInput`
   elevation: 5; /* Sombra no Android */
 `;
 
-// Ícone para o input
+// Container para o ícone no input
 export const IconContainer = styled.View`
   position: absolute;
-  left: 30px;
-  top: 15px;
+  left: 15px;
+  top: 12px;
 `;
 
 // Estiliza o botão de login com o degradê e arredondamento
@@ -98,7 +98,7 @@ export const WordOfTheDayTitle = styled.Text`
 // Estiliza o container da mensagem bíblica
 export const BibleMessageContainer = styled.View`
   width: 85%;
-  height: 60px;
+  padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
   background-color: #ff7e5f;
@@ -108,10 +108,9 @@ export const BibleMessageContainer = styled.View`
 
 // Estiliza o texto da mensagem bíblica
 export const BibleMessageText = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #fff;
   text-align: center;
   line-height: 20px;
-  padding-top: 10px;
 `;

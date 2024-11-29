@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Image, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Alert, Image, TouchableOpacity, View } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
 import { styles } from './sombras';
-import { loginUser } from '../services/auth/authService';
 import {
   Container,
   Title,
@@ -18,17 +17,24 @@ import {
   BibleMessageContainer,
   BibleMessageText,
 } from './LoginStyles';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/actions/userActions';
+import { AppDispatch } from '../redux/store';
+import { getRandomVerse } from '../services/bibleService';
 
 const LoginScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Login'>>(); // Usando o tipo NavigationProps para definir a navegação
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Login'>>();
+  const dispatch: AppDispatch = useDispatch(); // Obtendo o dispatch do Redux
 
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [versiculo, setVersiculo] = useState('');
+  const [referencia, setReferencia] = useState('');
 
   const formatCpf = (text: string) => {
-    const cpfFormatted = text
-      .replace(/\D/g, '')
+    const onlyNumbers = text.replace(/\D/g, '').slice(0, 11); // Limita a 11 números
+    const cpfFormatted = onlyNumbers
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
@@ -43,26 +49,40 @@ const LoginScreen = () => {
         return;
       }
 
-      // Chama a função de autenticação
-      const response = await loginUser(cpf, password);
-
-      if (response.success) {
-        Alert.alert('Sucesso', 'Login realizado com sucesso!');
-        navigation.navigate('Home'); // Navegar para a tela Home
-      } else {
-        Alert.alert('Erro', response.message || 'CPF ou senha incorretos.');
-      }
+      // Chama a ação de login com Redux
+      dispatch(login(cpf, password))
+        .then(() => {
+          Alert.alert('Sucesso', 'Login realizado com sucesso!');
+          navigation.navigate('Home');
+        })
+        .catch((error: any) => {
+          Alert.alert('Erro', error || 'CPF ou senha incorretos.');
+        });
     } catch (error: any) {
       console.error('Erro no login:', error.message);
       Alert.alert('Erro', 'Ocorreu um problema ao realizar o login.');
     }
   };
 
+  // Obtém o versículo do dia ao carregar a página
+  useEffect(() => {
+    const fetchVerse = async () => {
+      const verse = await getRandomVerse();
+      if (verse) {
+        setVersiculo(verse.texto);
+        setReferencia(verse.referencia);
+      } else {
+        setVersiculo('Erro ao carregar o versículo.');
+        setReferencia('');
+      }
+    };
+
+    fetchVerse();
+  }, []);
+
   return (
     <Container>
       <StatusBar style="auto" />
-
-      {/* Header com o LinearGradient diretamente */}
       <LinearGradient
         colors={['#ff7e5f', '#feb47b']}
         start={{ x: 0, y: 0 }}
@@ -80,10 +100,20 @@ const LoginScreen = () => {
         <Title>Login</Title>
       </LinearGradient>
 
-      {/* Área de conteúdo abaixo do cabeçalho */}
       <View style={{ width: '100%', alignItems: 'center', marginTop: -20 }}>
         <View style={[styles.inputShadow, { width: '85%', marginBottom: 20, marginTop: 50 }]}>
-          <Input placeholder="CPF" value={cpf} onChangeText={formatCpf} keyboardType="numeric" />
+          <Input
+            placeholder="CPF"
+            value={cpf}
+            onChangeText={formatCpf}
+            keyboardType="numeric"
+          />
+          <Icon
+            name="account-outline"
+            size={24}
+            color="#333"
+            style={{ position: 'absolute', left: 15, top: 12 }}
+          />
         </View>
 
         <View style={[styles.inputShadow, { width: '85%', flexDirection: 'row', alignItems: 'center', position: 'relative' }]}>
@@ -98,8 +128,14 @@ const LoginScreen = () => {
             style={{ position: 'absolute', right: 15, bottom: '45%' }}
             onPress={() => setShowPassword(!showPassword)}
           >
-            <Icon name={showPassword ? 'eye-off' : 'eye'} size={24} color="#333" />
+            <Icon name={showPassword ? 'eye' : 'eye-off'} size={24} color="#333" />
           </TouchableOpacity>
+          <Icon
+            name="lock-outline"
+            size={24}
+            color="#333"
+            style={{ position: 'absolute', left: 15, top: 12 }}
+          />
         </View>
 
         <TouchableOpacity onPress={handleLogin} style={{ width: '85%', marginTop: 20 }}>
@@ -119,7 +155,9 @@ const LoginScreen = () => {
 
         <WordOfTheDayTitle>Palavra do dia:</WordOfTheDayTitle>
         <BibleMessageContainer>
-          <BibleMessageText>"O Senhor é meu pastor e nada me faltará." - Salmos 23:1</BibleMessageText>
+          <BibleMessageText>
+            {versiculo} "{referencia}"
+          </BibleMessageText>
         </BibleMessageContainer>
       </View>
     </Container>

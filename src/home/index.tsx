@@ -22,12 +22,28 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
 import Menu from './menu/index'; // Import do Menu
+import { useSelector } from 'react-redux'; // Importa o hook para acessar o estado global
+import { RootState } from '../redux/store'; // Importa o tipo RootState para tipagem
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isMenuVisible, setIsMenuVisible] = useState(false); // Estado para controlar a visibilidade do menu
+
+  // Obtendo o nome do usuário do estado global
+  const userName = useSelector((state: RootState) => {
+    console.log(state.user.user); // Adicione este log para verificar os dados no estado global
+    return state.user.user?.nome || 'Usuário';
+  });
+
+  const getFirstAndLastName = (fullName: string) => {
+    const nameParts = fullName.trim().split(' '); // Divide o nome em partes
+    if (nameParts.length === 1) {
+      return nameParts[0]; // Se houver apenas um nome, retorna ele
+    }
+    return `${nameParts[0]} ${nameParts[nameParts.length - 1]}`; // Retorna o primeiro e o último nome
+  };  
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('pt-BR', {
@@ -81,7 +97,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             resizeMode="contain"
           />
         </LogoContainer>
-        <WelcomeText>Olá, JORGE</WelcomeText>
+        <WelcomeText>Olá, {getFirstAndLastName(userName)}</WelcomeText>
         <DateSubText>Seja bem-vindo(a)</DateSubText>
       </LinearGradient>
 
@@ -126,7 +142,6 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
       {/* Renderiza o menu lateral */}
       {isMenuVisible && <Menu onClose={toggleMenu} />}
-
     </View>
   );
 };

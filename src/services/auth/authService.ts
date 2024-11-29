@@ -33,6 +33,8 @@ export async function loginUser(cpf: string, senha: string) {
       throw new Error('Senha incorreta.');
     }
 
+    console.log('Usuário retornado do Supabase:', user);
+
     return {
       success: true,
       user: {

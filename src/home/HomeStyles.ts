@@ -34,7 +34,7 @@ export const WelcomeText = styled.Text`
 // Texto secundário abaixo das boas-vindas
 export const DateSubText = styled.Text`
   font-size: 14px;
-  color: #777;
+  color: black;
   margin-top: 4px;
 `;
 
