@@ -11,6 +11,7 @@ import ColaboradoresScreen from '../AdicionarColaborador/index';
 import AdicionarColaborador from '../CriarColaborador/index'
 import VerColaboradores from '../VerColaboradores/index';
 import FazerPesquisa from '../FazerPesquisa';
+import CadastroLoja from '../CadastroLoja';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Definindo todas as rotas, incluindo a nova tela
@@ -25,6 +26,7 @@ type RootStackParamList = {
   CriarColaboradores: undefined;
   VerColaboradores: undefined;
   FazerPesquisa: undefined;
+  CadastrarLoja: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
@@ -36,34 +38,34 @@ const AppRoutes = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
+          name="Login" // Nome da nova rota
+          component={LoginScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
+          name="Home" // Nome da nova rota
+          component={HomeScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen
-          name="Route"
-          component={RouteScreen}
-          options={{ headerShown: false }}
+          name="Route" // Nome da nova rota
+          component={RouteScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen
-          name="CheckIn"
-          component={CheckInScreen}
-          options={{ headerShown: false }}
+          name="CheckIn" // Nome da nova rota
+          component={CheckInScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen
-          name="Justification"
-          component={JustificationScreen}
-          options={{ headerShown: false }}
+          name="Justification" // Nome da nova rota
+          component={JustificationScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen
-          name="MainIndustries"
-          component={MainIndustriesScreen}
-          options={{ headerShown: false }}
+          name="MainIndustries" // Nome da nova rota
+          component={MainIndustriesScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen
           name="Collaborators" // Nome da nova rota
@@ -83,6 +85,11 @@ const AppRoutes = () => {
         <Stack.Screen
           name="FazerPesquisa" // Nome da nova rota
           component={FazerPesquisa} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="CadastrarLoja" // Nome da nova rota
+          component={CadastroLoja} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
       </Stack.Navigator>

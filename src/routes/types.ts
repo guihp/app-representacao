@@ -11,6 +11,7 @@ export type RootStackParamList = {
   CriarColaboradores: undefined;
   VerColaboradores: undefined;
   FazerPesquisa: undefined;
+  CadastrarLoja: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;

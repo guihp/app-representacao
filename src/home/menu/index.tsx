@@ -35,6 +35,11 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
     navigation.navigate('FazerPesquisa');
   };
 
+  const handlemark = () => {
+    onClose();
+    navigation.navigate('CadastrarLoja');
+  };
+
   const handleLogout = () => {
     // Dispara a ação de logout no Redux
     dispatch(logout());
@@ -76,6 +81,18 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
               <Icon name="book-open-outline" size={24} color="#FF7E5F" />
             </MenuItemIcon>
             <MenuText>Treinamento</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
+
+        <MenuItem  onPress={handlemark}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <Icon name="cart" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>Cadastrar Loja</MenuText>
           </MenuItemLeft>
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />

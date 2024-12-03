@@ -153,10 +153,10 @@ const LoginScreen = () => {
           </LinearGradient>
         </TouchableOpacity>
 
-        <WordOfTheDayTitle>Palavra do dia:</WordOfTheDayTitle>
+        <WordOfTheDayTitle>Palavra do dia: {referencia}</WordOfTheDayTitle>
         <BibleMessageContainer>
           <BibleMessageText>
-            {versiculo} "{referencia}"
+            {versiculo}
           </BibleMessageText>
         </BibleMessageContainer>
       </View>
