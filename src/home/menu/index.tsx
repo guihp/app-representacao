@@ -46,6 +46,11 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
     navigation.navigate('CadastrarLoja');
   };
 
+  const handleActivy = () => {
+    onClose();
+    navigation.navigate('AdicionarAtividades');
+  };
+
   const handleLogout = () => {
     // Dispara a ação de logout no Redux
     dispatch(logout());
@@ -117,7 +122,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuItemRight>
         </MenuItem>
 
-        <MenuItem onPress={() => alert('Adicionar Atividades')}>
+        <MenuItem onPress={handleActivy}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="plus-circle-outline" size={24} color="#FF7E5F" />
