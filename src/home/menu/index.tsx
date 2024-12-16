@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import {
   MenuContainer,
   MenuHeader,
@@ -33,6 +34,11 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
   const handleSearch = () => {
     onClose();
     navigation.navigate('FazerPesquisa');
+  };
+
+  const handletrainer = () => {
+    onClose();
+    navigation.navigate('TreinamentoScreen');
   };
 
   const handlemark = () => {
@@ -75,12 +81,24 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuItemRight>
         </MenuItem>
 
-        <MenuItem onPress={() => alert('Treinamento')}>
+        <MenuItem onPress={handletrainer}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="book-open-outline" size={24} color="#FF7E5F" />
             </MenuItemIcon>
             <MenuText>Treinamento</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
+
+        <MenuItem onPress={() => alert('Treinamento')}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <AntDesign name="areachart" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>Painel Administrativo</MenuText>
           </MenuItemLeft>
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />

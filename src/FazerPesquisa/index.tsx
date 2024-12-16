@@ -139,7 +139,7 @@ const FazerPesquisa: React.FC = ({ navigation }: any) => {
       {/* Header */}
       <Header>
         <BackButton onPress={handleBack}>
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <Icon name="arrow-left" size={30} color="#FFF" />
         </BackButton>
         <HeaderTitle>Fazer Pesquisa</HeaderTitle>
       </Header>

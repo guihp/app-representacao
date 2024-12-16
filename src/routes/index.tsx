@@ -12,6 +12,7 @@ import AdicionarColaborador from '../CriarColaborador/index'
 import VerColaboradores from '../VerColaboradores/index';
 import FazerPesquisa from '../FazerPesquisa';
 import CadastroLoja from '../CadastroLoja';
+import TreinamentoScreen from '../treinamento';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Definindo todas as rotas, incluindo a nova tela
@@ -27,6 +28,7 @@ type RootStackParamList = {
   VerColaboradores: undefined;
   FazerPesquisa: undefined;
   CadastrarLoja: undefined;
+  TreinamentoScreen: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
@@ -90,6 +92,11 @@ const AppRoutes = () => {
         <Stack.Screen
           name="CadastrarLoja" // Nome da nova rota
           component={CadastroLoja} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="TreinamentoScreen" // Nome da nova rota
+          component={TreinamentoScreen} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
       </Stack.Navigator>

@@ -32,7 +32,7 @@ export const HeaderTitle = styled.Text`
 
 export const BackButton = styled.TouchableOpacity`
   position: absolute;
-  left: 10px;
+  left: 30px;
   justify-content: center;
   align-items: center;
 `;
