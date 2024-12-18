@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import ModalUsuarios from '../componentes/ModalUsuarios'; // Importação do modal
 import {
   Container,
   Header,
@@ -16,8 +17,7 @@ import {
 } from './CriarAtividadesStyles';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
-const tiposAtividade = ['Antes e Depois', 'Auditoria', 'Promoção'];
-const usuarios = ['Usuário 1', 'Usuário 2', 'Usuário 3'];
+const tiposAtividade = ['Antes e Depois', 'Degustação'];
 const industriasLojas = ['Indústria 1', 'Loja 1', 'Indústria 2'];
 
 const AdicionarAtividades: React.FC = ({ navigation }: any) => {
@@ -31,7 +31,8 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
   const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
   const [showTipoDropdown, setShowTipoDropdown] = useState(false);
   const [showIndustriaLojaDropdown, setShowIndustriaLojaDropdown] = useState(false);
-  const [showUsuarioDropdown, setShowUsuarioDropdown] = useState(false);
+
+  const [isModalVisible, setModalVisible] = useState(false); // Estado para controlar o modal
 
   // Mostrar seletor de data
   const showDatePicker = (type: 'inicio' | 'fim') => {
@@ -116,25 +117,10 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
 
         {/* Selecionar Usuário */}
         <Label>Usuário</Label>
-        <SelectButton onPress={() => setShowUsuarioDropdown(!showUsuarioDropdown)}>
+        <SelectButton onPress={() => setModalVisible(true)}>
           <ButtonText>{usuarioSelecionado || 'Selecionar Usuário'}</ButtonText>
-          <Icon name="chevron-down" size={20} color="#777" />
+          <Icon name="chevron-right" size={20} color="#777" />
         </SelectButton>
-        {showUsuarioDropdown && (
-          <DropdownContainer>
-            {usuarios.map((user, index) => (
-              <DropdownItem
-                key={index}
-                onPress={() => {
-                  setUsuarioSelecionado(user);
-                  setShowUsuarioDropdown(false);
-                }}
-              >
-                <ButtonText>{user}</ButtonText>
-              </DropdownItem>
-            ))}
-          </DropdownContainer>
-        )}
 
         {/* Data de Início */}
         <Label>Data de Início</Label>
@@ -162,6 +148,16 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
           onCancel={() => setDatePickerVisible(false)}
         />
       </Container2>
+
+      {/* Modal de Usuários */}
+      <ModalUsuarios
+        visible={isModalVisible}
+        onClose={() => setModalVisible(false)}
+        onSelectUser={(user) => {
+          setUsuarioSelecionado(user.nome);
+          setModalVisible(false);
+        }}
+      />
     </Container>
   );
 };

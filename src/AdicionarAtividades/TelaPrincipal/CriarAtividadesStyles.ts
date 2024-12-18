@@ -34,7 +34,7 @@ export const Header = styled.View`
 export const BackButton = styled.TouchableOpacity`
   position: absolute;
   left: 20px;
-  top: ${Platform.OS === 'android' ? `${(StatusBar.currentHeight || 20) + 10}px` : '10px'};
+  top: ${Platform.OS === 'android' ? `${(StatusBar.currentHeight || 20) + 28}px` : '10px'};
 `;
 
 // Título do Header
