@@ -71,6 +71,11 @@ export const ButtonText = styled.Text`
   color: #555555;
 `;
 
+export const ButtonActivyText = styled.Text`
+  font-size: 16px;
+  color: #fff;
+`;
+
 // Botão principal (confirmação, etc.)
 export const Button = styled.TouchableOpacity`
   background-color: #2ecc71;

@@ -98,17 +98,6 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuItemRight>
         </MenuItem>
 
-        <MenuItem onPress={() => alert('Treinamento')}>
-          <MenuItemLeft>
-            <MenuItemIcon>
-              <AntDesign name="areachart" size={24} color="#FF7E5F" />
-            </MenuItemIcon>
-            <MenuText>Painel Administrativo</MenuText>
-          </MenuItemLeft>
-          <MenuItemRight>
-            <Icon name="chevron-right" size={24} color="#333" />
-          </MenuItemRight>
-        </MenuItem>
 
         <MenuItem  onPress={handlemark}>
           <MenuItemLeft>

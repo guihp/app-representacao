@@ -10,67 +10,61 @@ import {
   ProfileImage,
   CardContent,
   CollaboratorName,
-  CollaboratorInfo,
   CloseButton,
 } from './Styles/ModalUsuarioStyles';
-import { fetchStoresService } from '../../services/storeservices';
+import { fetchIndustriaService } from '../../services/industriaservices';
 
-type store = {
+type Industrias = {
   id: number;
   Nome: string;
-  endereco: string;
-  latitude: number;
-  longitude: number;
-  criado_em: string;
 };
 
-type ModalSupermercadosProps = {
+type ModalIndustriasProps = {
   visible: boolean;
   onClose: () => void;
-  onSelectLoja: (loja: store) => void;
+  onSelectLoja: (Industria: Industrias) => void;
 };
 
-const ModalSupermercados: React.FC<ModalSupermercadosProps> = ({
+const ModalIndustrias: React.FC<ModalIndustriasProps> = ({
   visible,
   onClose,
   onSelectLoja,
 }) => {
-  const [supermarkets, setSupermarkets] = useState<store[]>([]);
-  const [filteredSupermarkets, setFilteredSupermarkets] = useState<store[]>([]);
+  const [industria, setIndustria] = useState<Industrias[]>([]);
+  const [filteredIndustria, setFilteredIndustria] = useState<Industrias[]>([]);
   const [searchText, setSearchText] = useState('');
 
-  // Buscar os supermercados ao abrir o modal
+  // Buscar as industrias ao abrir o modal
   useEffect(() => {
     if (visible) {
-      const loadSupermarkets = async () => {
-        const response = await fetchStoresService(); // Serviço para buscar os supermercados
+      const loadIndustria = async () => {
+        const response = await fetchIndustriaService(); // Serviço para buscar as industrias
         if (Array.isArray(response)) {
-          setSupermarkets(response);
-          setFilteredSupermarkets(response);
+            setIndustria(response);
+          setFilteredIndustria(response);
         }
       };
-      loadSupermarkets();
+      loadIndustria();
     }
   }, [visible]);
 
-  // Filtrar supermercados ao digitar na barra de busca
+  // Filtrar industrias ao digitar na barra de busca
   useEffect(() => {
-    const filtered = supermarkets.filter((supermarket) => {
-      const nome = supermarket.Nome || ''; // Garante que 'nome' nunca será undefined ou null
+    const filtered = industria.filter((industria) => {
+      const nome = industria.Nome || ''; // Garante que 'nome' nunca será undefined ou null
       return nome.toLowerCase().includes(searchText.toLowerCase());
     });
-    setFilteredSupermarkets(filtered);
-  }, [searchText, supermarkets]);
+    setFilteredIndustria(filtered);
+  }, [searchText, industria]);
 
-  // Renderizar o supermercado
-  const renderSupermarket = ({ item }: { item: store }) => (
+  // Renderizar a industria
+  const renderIndustria = ({ item }: { item: Industrias }) => (
     <CardContainer onPress={() => onSelectLoja(item)}>
       <ProfileImage
         source={require('../../assets/images/loja.png')} // Substituir imagem futuramente
       />
       <CardContent>
         <CollaboratorName>{item.Nome}</CollaboratorName>
-        <CollaboratorInfo>{item.endereco}</CollaboratorInfo>
       </CardContent>
     </CardContainer>
   );
@@ -91,7 +85,7 @@ const ModalSupermercados: React.FC<ModalSupermercadosProps> = ({
                   style={{ marginRight: 10 }}
                 />
                 <SearchInput
-                  placeholder="Pesquisar supermercado..."
+                  placeholder="Pesquisar Industria..."
                   value={searchText}
                   onChangeText={setSearchText}
                 />
@@ -101,11 +95,11 @@ const ModalSupermercados: React.FC<ModalSupermercadosProps> = ({
                 </CloseButton>
               </SearchBarContainer>
 
-              {/* Lista de supermercados */}
+              {/* Lista de industria */}
               <FlatList
-                data={filteredSupermarkets}
+                data={filteredIndustria}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={renderSupermarket}
+                renderItem={renderIndustria}
               />
             </ModalContent>
           </TouchableWithoutFeedback>
@@ -115,4 +109,4 @@ const ModalSupermercados: React.FC<ModalSupermercadosProps> = ({
   );
 };
 
-export default ModalSupermercados;
+export default ModalIndustrias;

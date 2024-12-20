@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { userReducer } from './reducers/userReducer';
 import { treinamentoReducer } from './reducers/treinamentoReducer';
+import { storeReducer } from './reducers/storeReducer';
+import { industriaReducer } from './reducers/industriaReducer';
 // Configurando o Redux Store
 export const store = configureStore({
   reducer: {
-    user: userReducer, // Combina o userReducer ao estado global
-    treinamento: treinamentoReducer, // Reducer do treinamento
+    user: userReducer, 
+    treinamento: treinamentoReducer,
+    stores: storeReducer,
+    Industria: industriaReducer,
   },
 });
 

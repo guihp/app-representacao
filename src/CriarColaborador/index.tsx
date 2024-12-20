@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import {
   Alert,
   Modal,
-  Text,
   TouchableOpacity,
 } from 'react-native';
-import { hashPassword } from '../services/cryptoUtils'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import {
   Container,

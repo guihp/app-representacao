@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import ModalUsuarios from '../componentes/ModalUsuarios'; // Importação do modal
+import ModalUsuarios from '../componentes/ModalUsuarios';
+import ModalSupermercados from '../componentes/ModalSupermercados';
+import ModalIndustrias from '../componentes/ModalIndustrias';
 import {
   Container,
   Header,
@@ -14,11 +16,13 @@ import {
   DropdownContainer,
   DropdownItem,
   Container2,
+  ButtonActivyText,
 } from './CriarAtividadesStyles';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 const tiposAtividade = ['Antes e Depois', 'Degustação'];
-const industriasLojas = ['Indústria 1', 'Loja 1', 'Indústria 2'];
 
 const AdicionarAtividades: React.FC = ({ navigation }: any) => {
   const [tipoAtividade, setTipoAtividade] = useState('');
@@ -30,9 +34,20 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
   const [industriaSelecionada, setIndustriaSelecionada] = useState('');
   const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
   const [showTipoDropdown, setShowTipoDropdown] = useState(false);
-  const [showIndustriaLojaDropdown, setShowIndustriaLojaDropdown] = useState(false);
 
-  const [isModalVisible, setModalVisible] = useState(false); // Estado para controlar o modal
+  const [isModalUsuariosVisible, setModalUsuariosVisible] = useState(false); 
+  const [isModalSupermercadosVisible, setModalSupermercadosVisible] = useState(false);
+  const [isModalIndustriaVisible, setModalIndustriaVisible] = useState(false);
+
+  const user = useSelector((state: RootState) => state.user.user); // Obtém o usuário logado do Redux
+
+  // Verifica se o usuário está logado
+  useEffect(() => {
+    if (!user) {
+      Alert.alert('Erro', 'Usuário não autenticado. Faça login para continuar.');
+      navigation.replace('Login'); // Redireciona para a página de login
+    }
+  }, [user]);
 
   // Mostrar seletor de data
   const showDatePicker = (type: 'inicio' | 'fim') => {
@@ -72,7 +87,7 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
 
       <Container2>
         {/* Tipo de Atividade */}
-        <Label>Tipo de Atividade</Label>
+        <Label>Tipo de Atividade:</Label>
         <SelectButton onPress={() => setShowTipoDropdown(!showTipoDropdown)}>
           <ButtonText>{tipoAtividade || 'Selecionar Tipo de Atividade'}</ButtonText>
           <Icon name="chevron-down" size={20} color="#777" />
@@ -94,49 +109,40 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
         )}
 
         {/* Indústria ou Loja */}
-        <Label>Indústria ou Loja</Label>
-        <SelectButton onPress={() => setShowIndustriaLojaDropdown(!showIndustriaLojaDropdown)}>
-          <ButtonText>{industriaSelecionada || 'Selecionar Indústria ou Loja'}</ButtonText>
-          <Icon name="chevron-down" size={20} color="#777" />
+        <Label>Supermercado:</Label>
+        <SelectButton onPress={() => setModalSupermercadosVisible(true)}>
+          <ButtonText>{industriaSelecionada || 'Selecionar Loja'}</ButtonText>
+          <Icon name="chevron-right" size={20} color="#777" />
         </SelectButton>
-        {showIndustriaLojaDropdown && (
-          <DropdownContainer>
-            {industriasLojas.map((item, index) => (
-              <DropdownItem
-                key={index}
-                onPress={() => {
-                  setIndustriaSelecionada(item);
-                  setShowIndustriaLojaDropdown(false);
-                }}
-              >
-                <ButtonText>{item}</ButtonText>
-              </DropdownItem>
-            ))}
-          </DropdownContainer>
-        )}
+
+        <Label>Industria:</Label>
+        <SelectButton onPress={() => setModalIndustriaVisible(true)}>
+          <ButtonText>{industriaSelecionada || 'Selecionar Indústria'}</ButtonText>
+          <Icon name="chevron-right" size={20} color="#777" />
+        </SelectButton>
 
         {/* Selecionar Usuário */}
-        <Label>Usuário</Label>
-        <SelectButton onPress={() => setModalVisible(true)}>
+        <Label>Usuário:</Label>
+        <SelectButton onPress={() => setModalUsuariosVisible(true)}>
           <ButtonText>{usuarioSelecionado || 'Selecionar Usuário'}</ButtonText>
           <Icon name="chevron-right" size={20} color="#777" />
         </SelectButton>
 
         {/* Data de Início */}
-        <Label>Data de Início</Label>
+        <Label>Início da rota:</Label>
         <SelectButton onPress={() => showDatePicker('inicio')}>
           <ButtonText>{dataInicio || 'Selecionar Data de Início'}</ButtonText>
         </SelectButton>
 
         {/* Data de Fim */}
-        <Label>Data de Fim</Label>
+        <Label>Fim da rota:</Label>
         <SelectButton onPress={() => showDatePicker('fim')}>
           <ButtonText>{dataFim || 'Selecionar Data de Fim'}</ButtonText>
         </SelectButton>
 
         {/* Botão de Adicionar */}
         <Button onPress={handleAddActivity}>
-          <ButtonText>Adicionar Atividade</ButtonText>
+          <ButtonActivyText>Adicionar Atividade</ButtonActivyText>
         </Button>
 
         {/* DateTime Picker */}
@@ -151,13 +157,33 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
 
       {/* Modal de Usuários */}
       <ModalUsuarios
-        visible={isModalVisible}
-        onClose={() => setModalVisible(false)}
+        visible={isModalUsuariosVisible}
+        onClose={() => setModalUsuariosVisible(false)}
         onSelectUser={(user) => {
           setUsuarioSelecionado(user.nome);
-          setModalVisible(false);
+          setModalUsuariosVisible(false);
         }}
       />
+
+      {/* Modal de Lojas/Indústrias */}
+      <ModalSupermercados
+        visible={isModalSupermercadosVisible}
+        onClose={() => setModalSupermercadosVisible(false)}
+        onSelectLoja={(loja) => {
+          setIndustriaSelecionada(loja.Nome); // Pega o nome da loja
+          setModalSupermercadosVisible(false); // Fecha o modal
+        }}
+      />
+
+      <ModalIndustrias
+        visible={isModalIndustriaVisible}
+        onClose={() => setModalIndustriaVisible(false)}
+        onSelectLoja={(Industria) => {
+          setIndustriaSelecionada(Industria.Nome); // Pega o nome da loja
+          setModalSupermercadosVisible(false); // Fecha o modal
+        }}
+      />
+
     </Container>
   );
 };
