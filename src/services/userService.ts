@@ -61,7 +61,6 @@ export async function saveUser(data: {
           cargo: data.cargo,
           estado_id: defaultEstado, // Estado padrão
           cidade: defaultCidade, // Cidade padrão
-          nivel_acesso: nivelAcesso, // Nível de acesso
           status: true, // Status ativo por padrão
         },
       ]);

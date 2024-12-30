@@ -19,8 +19,9 @@ import {
   ButtonActivyText,
 } from './CriarAtividadesStyles';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../redux/store';
+import { addAtividade } from '../../redux/actions/AtividadesActionsAll';
 
 const tiposAtividade = ['Antes e Depois', 'Degustação'];
 
@@ -30,17 +31,20 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
   const [dataFim, setDataFim] = useState('');
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
   const [currentDateType, setCurrentDateType] = useState<'inicio' | 'fim'>('inicio');
+  const [usuarioSelecionadoId, setUsuarioSelecionadoId] = useState<number | null>(null);
+
 
   const [industriaSelecionada, setIndustriaSelecionada] = useState('');
   const [usuarioSelecionado, setUsuarioSelecionado] = useState('');
   const [showTipoDropdown, setShowTipoDropdown] = useState(false);
+  const [lojaSelecionada, setLojaSelecionada] = useState('');
 
   const [isModalUsuariosVisible, setModalUsuariosVisible] = useState(false); 
   const [isModalSupermercadosVisible, setModalSupermercadosVisible] = useState(false);
   const [isModalIndustriaVisible, setModalIndustriaVisible] = useState(false);
 
   const user = useSelector((state: RootState) => state.user.user); // Obtém o usuário logado do Redux
-
+  const dispatch = useDispatch<AppDispatch>();
   // Verifica se o usuário está logado
   useEffect(() => {
     if (!user) {
@@ -64,15 +68,37 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
   };
 
   // Função de adicionar atividade
-  const handleAddActivity = () => {
+  const handleAddActivity = async () => {
     if (!tipoAtividade || !dataInicio || !dataFim || !industriaSelecionada || !usuarioSelecionado) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       return;
     }
 
-    Alert.alert('Sucesso', 'Atividade adicionada com sucesso!', [
-      { text: 'OK', onPress: () => navigation.goBack() },
-    ]);
+    const formatDate = (date: string): string => {
+      const [day, month, year] = date.split('/'); // Divide a data em dia, mês e ano
+      return `${year}-${month}-${day}`; // Retorna no formato esperado pelo Supabase
+    };
+
+    const atividadeData = {
+      tipo: tipoAtividade,
+      usuario_responsavel: usuarioSelecionadoId,
+      loja: lojaSelecionada,
+      industria: industriaSelecionada,
+      data_inicio: formatDate(dataInicio),
+      data_fim: formatDate(dataFim),
+      status: 'Pendente',
+      sincronizado: true,
+      criado_por: user.id,
+    };
+
+    try {
+      await dispatch(addAtividade(atividadeData));
+      Alert.alert('Sucesso', 'Atividade adicionada com sucesso!', [
+        { text: 'OK', onPress: () => navigation.goBack() },
+      ]);
+    } catch (error) {
+      Alert.alert('Erro', 'Ocorreu um problema ao adicionar a atividade.');
+    }
   };
 
   return (
@@ -111,7 +137,7 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
         {/* Indústria ou Loja */}
         <Label>Supermercado:</Label>
         <SelectButton onPress={() => setModalSupermercadosVisible(true)}>
-          <ButtonText>{industriaSelecionada || 'Selecionar Loja'}</ButtonText>
+          <ButtonText>{lojaSelecionada || 'Selecionar Loja'}</ButtonText>
           <Icon name="chevron-right" size={20} color="#777" />
         </SelectButton>
 
@@ -162,6 +188,7 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
         onSelectUser={(user) => {
           setUsuarioSelecionado(user.nome);
           setModalUsuariosVisible(false);
+          setUsuarioSelecionadoId(user.id)
         }}
       />
 
@@ -170,7 +197,7 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
         visible={isModalSupermercadosVisible}
         onClose={() => setModalSupermercadosVisible(false)}
         onSelectLoja={(loja) => {
-          setIndustriaSelecionada(loja.Nome); // Pega o nome da loja
+          setLojaSelecionada(loja.Nome); // Pega o nome da loja
           setModalSupermercadosVisible(false); // Fecha o modal
         }}
       />
@@ -180,7 +207,7 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
         onClose={() => setModalIndustriaVisible(false)}
         onSelectLoja={(Industria) => {
           setIndustriaSelecionada(Industria.Nome); // Pega o nome da loja
-          setModalSupermercadosVisible(false); // Fecha o modal
+          setModalIndustriaVisible(false); // Fecha o modal
         }}
       />
 

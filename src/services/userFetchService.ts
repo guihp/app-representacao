@@ -63,7 +63,6 @@ type Collaborator = {
     cargo: string;
     cidade: string;
     estado_id: string;
-    nivel_acesso: string;
     status: boolean;
   };
   

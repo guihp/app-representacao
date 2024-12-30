@@ -43,7 +43,6 @@ export async function loginUser(cpf: string, senha: string) {
         email: user.email,
         telefone: user.telefone,
         cargo: user.cargo,
-        nivel_acesso: user.nivel_acesso,
       },
     };
   } catch (error: any) {

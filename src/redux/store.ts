@@ -3,6 +3,8 @@ import { userReducer } from './reducers/userReducer';
 import { treinamentoReducer } from './reducers/treinamentoReducer';
 import { storeReducer } from './reducers/storeReducer';
 import { industriaReducer } from './reducers/industriaReducer';
+import { atividadeReducer }  from './reducers/BuscarAtividadeReducer';
+
 // Configurando o Redux Store
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,7 @@ export const store = configureStore({
     treinamento: treinamentoReducer,
     stores: storeReducer,
     Industria: industriaReducer,
+    atividades: atividadeReducer, // Adicionando o reducer de atividades
   },
 });
 

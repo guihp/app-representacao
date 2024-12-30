@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Alert, Image, View, TouchableOpacity } from 'react-native';
 import {
@@ -21,29 +21,35 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
-import Menu from './menu/index'; // Import do Menu
-import { useSelector } from 'react-redux'; // Importa o hook para acessar o estado global
-import { RootState } from '../redux/store'; // Importa o tipo RootState para tipagem
+import Menu from './menu/index';
+import { useSelector, useDispatch } from 'react-redux'; // Importa o hook `useDispatch`
+import { RootState } from '../redux/store';
+import { fetchAtividades } from '../redux/actions/AtividadesActionsAll'; // Importa a ação
+import { AppDispatch } from '../redux/store'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isMenuVisible, setIsMenuVisible] = useState(false); // Estado para controlar a visibilidade do menu
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [atividade, setAtividade] = useState<any | null>(null);
 
-  // Obtendo o nome do usuário do estado global
-  const userName = useSelector((state: RootState) => {
-    console.log(state.user.user); // Adicione este log para verificar os dados no estado global
-    return state.user.user?.nome || 'Usuário';
-  });
+  const dispatch = useDispatch<AppDispatch>(); // Hook para despachar ações
+
+  // Obtendo o nome do usuário logado
+  const userName = useSelector((state: RootState) => state.user.user?.nome || 'Usuário');
+  const userId = useSelector((state: RootState) => state.user.user?.id || null); // ID do usuário logado
+
+  // Obtendo atividades do Redux
+  const atividades = useSelector((state: RootState) => state.atividades.atividades);
 
   const getFirstAndLastName = (fullName: string) => {
-    const nameParts = fullName.trim().split(' '); // Divide o nome em partes
+    const nameParts = fullName.trim().split(' ');
     if (nameParts.length === 1) {
-      return nameParts[0]; // Se houver apenas um nome, retorna ele
+      return nameParts[0];
     }
-    return `${nameParts[0]} ${nameParts[nameParts.length - 1]}`; // Retorna o primeiro e o último nome
-  };  
+    return `${nameParts[0]} ${nameParts[nameParts.length - 1]}`;
+  };
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('pt-BR', {
@@ -66,13 +72,40 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleNavigateToRoute = () => {
-    navigation.navigate('Route'); // Navega para a tela "Route"
+    navigation.navigate('Route');
   };
 
   const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible); // Alterna a visibilidade do menu
+    setIsMenuVisible(!isMenuVisible);
   };
 
+  // Atualiza a atividade com base na data selecionada e no usuário logado
+  useEffect(() => {
+    // Chama a ação para buscar atividades
+    dispatch(fetchAtividades());
+  }, [dispatch]); // Executa ao montar o componente
+
+  useEffect(() => {
+    // Converte a data selecionada para o formato ISO (YYYY-MM-DD)
+    const formattedDateISO = selectedDate.toISOString().split('T')[0]; // Obtém apenas a data no formato ISO
+  
+    // Filtra atividades pelo usuário responsável e data
+    const atividadeDoDia = atividades.find(
+      (atividade) =>
+        atividade.data_inicio === formattedDateISO && atividade.usuario_responsavel === userId
+    );
+  
+    if (atividadeDoDia) {
+      console.log('Atividade encontrada para a data:', atividadeDoDia);
+    } else {
+      console.log('Nenhuma atividade encontrada para a data:', formattedDateISO);
+    }
+    console.log('Atividades no Redux:', atividades);
+    console.log('Usuário logado (ID):', userId);
+  
+    setAtividade(atividadeDoDia || null);
+  }, [selectedDate, atividades, userId]);
+  
   return (
     <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
       <StatusBar style="auto" />
@@ -112,13 +145,17 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           </TouchableOpacity>
         </DateNavigationContainer>
 
-        <DateSubText>Lojas do dia: </DateSubText>
-        <LojaDay>Supermercado Mateus Cohama</LojaDay>
+        <DateSubText>Lojas do dia:</DateSubText>
+        <LojaDay>
+          {atividade ? atividade.loja : 'Nenhuma atividade adicionada, informe o seu supervisor.'}
+        </LojaDay>
         <DateSubText>Fotos não sincronizadas: 0</DateSubText>
 
         <StatusCard>
           <StatusItem>
-            <StatusTitle style={{ color: 'red' }}>2</StatusTitle>
+            <StatusTitle style={{ color: atividade?.status === 'Pendente' ? 'red' : 'green' }}>
+              {atividade ? atividade.status : '0'}
+            </StatusTitle>
             <StatusLabel>Pendentes</StatusLabel>
           </StatusItem>
           <StatusItem>
@@ -140,7 +177,6 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
         <Icon name="menu" size={33} color="#fff" style={{ marginLeft: 14, marginTop: 13 }} />
       </FloatingButton>
 
-      {/* Renderiza o menu lateral */}
       {isMenuVisible && <Menu onClose={toggleMenu} />}
     </View>
   );

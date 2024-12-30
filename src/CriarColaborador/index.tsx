@@ -33,8 +33,6 @@ import { RootStackParamList } from '../routes/types';
 import { saveUser } from '../services/userService';
 
 
-
-
 type Props = NativeStackScreenProps<RootStackParamList, 'CriarColaboradores'>;
 
 const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
@@ -100,7 +98,6 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
                 setAddress('');
                 setPassword('');
                 setSelectedCargo('');
-                setSelectedTelas([]);
               },
             },
           ]
@@ -202,16 +199,6 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
           <Icon name="chevron-down" size={24} color="#333" />
         </ModalButton>
 
-        {/* Botão para adicionar Telas */}
-        <ModalButton onPress={() => setTelasModalVisible(true)}>
-          <ModalButtonText>
-            {selectedTelas.length > 0
-              ? `Telas Selecionadas (${selectedTelas.length})`
-              : 'Selecionar Telas'}
-          </ModalButtonText>
-          <Icon name="chevron-down" size={24} color="#333" />
-        </ModalButton>
-
         {/* Gerar Senha */}
         <ModalButton disabled>
           <ModalButtonText>Senha Gerada*: {password || 'Clique para gerar'}</ModalButtonText>
@@ -281,7 +268,6 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
             <ModalText>CPF: {cpf}</ModalText>
             <ModalText>Endereço: {address}</ModalText>
             <ModalText>Cargo: {selectedCargo}</ModalText>
-            <ModalText>Telas: {selectedTelas.join(', ')}</ModalText>
             <ModalButtonsContainer>
               <ModalButtonConfirm backgroundColor="#05e32e" onPress={handleConfirmSave}>
                 <ModalButtonTextConfirm>Confirmar</ModalButtonTextConfirm>
