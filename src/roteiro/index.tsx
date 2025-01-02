@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Alert, Modal } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import {
@@ -27,18 +27,36 @@ import {
 } from './roteirostyles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../redux/store';
+import { fetchAtividades } from '../redux/actions/AtividadesActionsAll';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Route'>;
 
 const RouteScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [filters, setFilters] = useState({
     todos: true,
     concluidos: false,
     emProgresso: false,
     pendente: false,
   });
+
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.user.user); // Usuário logado
+  const atividades = useSelector((state: RootState) => state.atividades.atividades); // Atividades do Redux
+
+  useEffect(() => {
+    if (!user) {
+      Alert.alert('Erro', 'Usuário não autenticado. Faça login para continuar.');
+      navigation.replace('Login');
+    }
+  }, [user]);
+
+  useEffect(() => {
+    // Busca as atividades ao carregar a página
+    dispatch(fetchAtividades());
+  }, [dispatch]);
 
   const getVisibleDays = (date: Date) => {
     const startOfWeek = new Date(date);
@@ -71,11 +89,9 @@ const RouteScreen: React.FC<Props> = ({ navigation }) => {
   const handleFilterChange = (key: keyof typeof filters) => {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters, [key]: !prevFilters[key] };
-      // Se "Todos" for selecionado, desmarca os outros
       if (key === 'todos' && updatedFilters.todos) {
         return { todos: true, concluidos: false, emProgresso: false, pendente: false };
       }
-      // Se qualquer outro filtro for selecionado, desmarca "Todos"
       if (key !== 'todos' && updatedFilters[key]) {
         return { ...updatedFilters, todos: false };
       }
@@ -84,8 +100,26 @@ const RouteScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleHome = () => {
-    navigation.navigate('Home'); // Navega para a tela de justificativa
+    navigation.navigate('Home');
   };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  };
+  // Formatar a data no formato ISO (YYYY-MM-DD) para comparação
+  const formatDateISO = (date: Date) => date.toISOString().split('T')[0];
+
+  // Filtra atividades por data e ID do usuário logado
+  const atividadesDoDia = atividades.filter(
+    (atividade) =>
+      atividade.usuario_responsavel === user?.id &&
+      atividade.data_inicio <= formatDateISO(selectedDate) &&
+      atividade.data_fim >= formatDateISO(selectedDate)
+  );
 
   return (
     <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
@@ -95,14 +129,11 @@ const RouteScreen: React.FC<Props> = ({ navigation }) => {
           <Icon name="arrow-left" size={24} color="#fff" />
         </BackIcon>
         <HeaderTitle>Meu roteiro</HeaderTitle>
-        <FilterIcon onPress={() => setIsPopupVisible(true)}>
-          <Icon name="filter" size={24} color="#fff" />
-        </FilterIcon>
       </HeaderContainer>
 
       {/* Nome do mês */}
       <MonthTitle>
-        {selectedDate.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}
+      {selectedDate.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }).charAt(0).toUpperCase() + selectedDate.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }).slice(1)}
       </MonthTitle>
 
       {/* Navegação de datas */}
@@ -116,7 +147,7 @@ const RouteScreen: React.FC<Props> = ({ navigation }) => {
             onPress={() => handleSelectDate(day)}
           >
             <WeekdayText>
-              {day.toLocaleDateString('pt-BR', { weekday: 'short' }).substring(0, 3)}
+              {day.toLocaleDateString('pt-BR', { weekday: 'short' }).substring(0, 3).charAt(0).toUpperCase() + day.toLocaleDateString('pt-BR', { weekday: 'short' }).substring(1, 3)}
             </WeekdayText>
             <DateTextNumber isSelected={day.toDateString() === selectedDate.toDateString()}>
               {day.getDate()}
@@ -128,63 +159,27 @@ const RouteScreen: React.FC<Props> = ({ navigation }) => {
         </DateArrowButton>
       </DateNavigationContainer>
 
-      {/* Lista de cards */}
+      {/* Lista de atividades do dia */}
       <CardListContainer>
-        <RouteCard onPress={() => navigation.navigate('CheckIn')}>
-          <CardTitle>MATEUS SUPERMERCADOS S.A. - COHATRAC</CardTitle>
-          <CardDetails>15 - SUPER</CardDetails>
-          <CardDetails>AV. A, QD 06 23</CardDetails>
-        </RouteCard>
-        <RouteCard onPress={() => navigation.navigate('CheckIn')}>
-          <CardTitle>MATEUS SUPERMERCADOS S.A. - SUPER COHATRAC</CardTitle>
-          <CardDetails>15 - SUPER</CardDetails>
-          <CardDetails>AVE CONTORNO NORTE 1</CardDetails>
-        </RouteCard>
+        {atividadesDoDia.length > 0 ? (
+          atividadesDoDia.map((atividade) => (
+            <RouteCard key={atividade.id} onPress={() => navigation.navigate('CheckIn')}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight: 5}}>
+                <View>
+                  <CardTitle>{atividade.loja}</CardTitle>
+                  <CardDetails>Atividade: {atividade.tipo}</CardDetails>
+                  <CardDetails>Data: {formatDate(new Date(atividade.data_inicio))} até {formatDate(new Date(atividade.data_fim))}</CardDetails>
+                </View>
+                <Icon name="arrow-collapse-right" size={28} color="gray" />
+              </View>
+            </RouteCard>
+          ))
+        ) : (
+          <RouteCard>
+            <CardTitle>Nenhuma atividade encontrada</CardTitle>
+          </RouteCard>
+        )}
       </CardListContainer>
-
-      {/* Popup de filtro */}
-      <Modal visible={isPopupVisible} transparent animationType="fade">
-        <PopupOverlay>
-          <PopupContent>
-            <PopupHeader>
-              <PopupTitle>Filtrar</PopupTitle>
-              <PopupCloseButton onPress={() => setIsPopupVisible(false)}>
-                <Icon name="close" size={24} color="#ff3d00" />
-              </PopupCloseButton>
-            </PopupHeader>
-
-            {/* Opções de filtro */}
-            <FilterOption>
-              <FilterOptionText>Todos</FilterOptionText>
-              <ToggleSwitch
-                value={filters.todos}
-                onValueChange={() => handleFilterChange('todos')}
-              />
-            </FilterOption>
-            <FilterOption>
-              <FilterOptionText>Concluídos</FilterOptionText>
-              <ToggleSwitch
-                value={filters.concluidos}
-                onValueChange={() => handleFilterChange('concluidos')}
-              />
-            </FilterOption>
-            <FilterOption>
-              <FilterOptionText>Em progresso</FilterOptionText>
-              <ToggleSwitch
-                value={filters.emProgresso}
-                onValueChange={() => handleFilterChange('emProgresso')}
-              />
-            </FilterOption>
-            <FilterOption>
-              <FilterOptionText>Pendente</FilterOptionText>
-              <ToggleSwitch
-                value={filters.pendente}
-                onValueChange={() => handleFilterChange('pendente')}
-              />
-            </FilterOption>
-          </PopupContent>
-        </PopupOverlay>
-      </Modal>
     </View>
   );
 };

@@ -14,6 +14,7 @@ export type RootStackParamList = {
   CadastrarLoja: undefined;
   TreinamentoScreen: undefined;
   AdicionarAtividades: undefined;
+  ActivityPage: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;

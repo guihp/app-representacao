@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useFonts, Poppins_700Bold, Poppins_400Regular } from '@expo-google-fonts/poppins';
+import { useSelector } from 'react-redux';
 import {
   Container,
   HeaderText,
@@ -16,6 +17,7 @@ import {
 } from './chekinstyles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
+import { RootState } from '../redux/store';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CheckIn'>;
 
@@ -24,6 +26,18 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
     Poppins_700Bold,
     Poppins_400Regular,
   });
+
+  const [atividade, setAtividade] = useState<any | null>(null); // Atividade do usuário logado
+  const userId = useSelector((state: RootState) => state.user.user?.id || null); // ID do usuário logado
+  const atividades = useSelector((state: RootState) => state.atividades.atividades); // Atividades do Redux
+
+  // Filtra a atividade do usuário logado
+  useEffect(() => {
+    const atividadeUsuario = atividades.find(
+      (atividade) => atividade.usuario_responsavel === userId
+    );
+    setAtividade(atividadeUsuario || null);
+  }, [atividades, userId]);
 
   const handleCheckIn = () => {
     navigation.navigate('MainIndustries'); // Navega para a tela de chekin
@@ -53,13 +67,21 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
         }}
       >
         <HeaderText>Faça Check-in</HeaderText>
-        <HeaderSubtitle>e inicie as tarefas </HeaderSubtitle>
+        <HeaderSubtitle>e inicie as tarefas</HeaderSubtitle>
       </View>
 
       {/* Informações de confirmação */}
-      <ConfirmationText>Você está em</ConfirmationText>
-      <LocationName>MATEUS SUPERMERCADOS S.A. - COHATRAC?</LocationName>
-      <LocationAddress>AV. A ,QD 06</LocationAddress>
+      {atividade ? (
+        <>
+          <ConfirmationText>Você está em</ConfirmationText>
+          <LocationName>{atividade.loja}</LocationName>
+        </>
+      ) : (
+        <>
+          <ConfirmationText>Nenhuma atividade encontrada.</ConfirmationText>
+          <LocationName>Consulte seu supervisor!</LocationName>
+        </>
+      )}
 
       {/* Botões de ação */}
       <ActionButton onPress={handleCheckIn}>
@@ -71,7 +93,7 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
       </CancelButton>
 
       {/* Justificativa */}
-      <JustifyText onPress={handleJustify}>Justificar </JustifyText>
+      <JustifyText onPress={handleJustify}>Justificar</JustifyText>
     </Container>
   );
 };

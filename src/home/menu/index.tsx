@@ -15,20 +15,24 @@ import {
 } from './menuStyles';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../routes/types';
-import { useDispatch } from 'react-redux'; // Importa o hook useDispatch para o Redux
-import { logout } from '../../redux/actions/userActions'; // Importa a ação de logout
+import { useDispatch, useSelector } from 'react-redux'; // Importa useSelector para acessar o Redux
+import { logout } from '../../redux/actions/userActions';
+import { RootState } from '../../redux/store'; // Importa o estado global
 
 type MenuProps = {
-  onClose: () => void; // Função para fechar o menu
+  onClose: () => void;
 };
 
 const Menu: React.FC<MenuProps> = ({ onClose }) => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>(); // Use NavigationProp para garantir os tipos corretos
-  const dispatch = useDispatch(); // Hook para disparar ações do Redux
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const dispatch = useDispatch();
+
+  // Obtém o cargo do usuário logado
+  const userRole = useSelector((state: RootState) => state.user.user?.cargo);
 
   const navigateToCollaborators = () => {
-    onClose(); // Fecha o menu
-    navigation.navigate('Collaborators'); // Navega para a tela de Colaboradores
+    onClose();
+    navigation.navigate('Collaborators');
   };
 
   const handleSearch = () => {
@@ -36,12 +40,12 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
     navigation.navigate('FazerPesquisa');
   };
 
-  const handletrainer = () => {
+  const handleTrainer = () => {
     onClose();
     navigation.navigate('TreinamentoScreen');
   };
 
-  const handlemark = () => {
+  const handleMark = () => {
     onClose();
     navigation.navigate('CadastrarLoja');
   };
@@ -52,20 +56,17 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
   };
 
   const handleLogout = () => {
-    // Dispara a ação de logout no Redux
     dispatch(logout());
-    onClose(); // Fecha o menu
+    onClose();
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Login' }], // Redireciona para a tela de Login
+      routes: [{ name: 'Login' }],
     });
   };
 
   return (
     <Overlay>
-      {/* Menu lateral */}
       <MenuContainer>
-        {/* Header do menu */}
         <MenuHeader>
           <MenuTitle>Menu</MenuTitle>
           <MenuIcon onPress={onClose}>
@@ -73,7 +74,6 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuIcon>
         </MenuHeader>
 
-        {/* Opções do menu */}
         <MenuItem onPress={() => alert('Sincronização')}>
           <MenuItemLeft>
             <MenuItemIcon>
@@ -86,7 +86,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuItemRight>
         </MenuItem>
 
-        <MenuItem onPress={handletrainer}>
+        <MenuItem onPress={handleTrainer}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="book-open-outline" size={24} color="#FF7E5F" />
@@ -98,8 +98,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuItemRight>
         </MenuItem>
 
-
-        <MenuItem  onPress={handlemark}>
+        <MenuItem onPress={handleMark}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="cart" size={24} color="#FF7E5F" />
@@ -111,29 +110,34 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuItemRight>
         </MenuItem>
 
-        <MenuItem onPress={handleActivy}>
-          <MenuItemLeft>
-            <MenuItemIcon>
-              <Icon name="plus-circle-outline" size={24} color="#FF7E5F" />
-            </MenuItemIcon>
-            <MenuText>Adicionar Atividades</MenuText>
-          </MenuItemLeft>
-          <MenuItemRight>
-            <Icon name="chevron-right" size={24} color="#333" />
-          </MenuItemRight>
-        </MenuItem>
+        {/* Exibe apenas para usuários que não são promotores */}
+        {userRole !== 'Promotor' && (
+          <>
+            <MenuItem onPress={handleActivy}>
+              <MenuItemLeft>
+                <MenuItemIcon>
+                  <Icon name="plus-circle-outline" size={24} color="#FF7E5F" />
+                </MenuItemIcon>
+                <MenuText>Adicionar Atividades</MenuText>
+              </MenuItemLeft>
+              <MenuItemRight>
+                <Icon name="chevron-right" size={24} color="#333" />
+              </MenuItemRight>
+            </MenuItem>
 
-        <MenuItem onPress={navigateToCollaborators}>
-          <MenuItemLeft>
-            <MenuItemIcon>
-              <Icon name="account-plus-outline" size={24} color="#FF7E5F" />
-            </MenuItemIcon>
-            <MenuText>Adicionar Colaborador</MenuText>
-          </MenuItemLeft>
-          <MenuItemRight>
-            <Icon name="chevron-right" size={24} color="#333" />
-          </MenuItemRight>
-        </MenuItem>
+            <MenuItem onPress={navigateToCollaborators}>
+              <MenuItemLeft>
+                <MenuItemIcon>
+                  <Icon name="account-plus-outline" size={24} color="#FF7E5F" />
+                </MenuItemIcon>
+                <MenuText>Adicionar Colaborador</MenuText>
+              </MenuItemLeft>
+              <MenuItemRight>
+                <Icon name="chevron-right" size={24} color="#333" />
+              </MenuItemRight>
+            </MenuItem>
+          </>
+        )}
 
         <MenuItem onPress={handleSearch}>
           <MenuItemLeft>
@@ -147,7 +151,6 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuItemRight>
         </MenuItem>
 
-        {/* Opção de sair */}
         <MenuItem onPress={handleLogout}>
           <MenuItemLeft>
             <MenuItemIcon>

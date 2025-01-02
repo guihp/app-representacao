@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import {
   Container,
@@ -15,32 +15,45 @@ import {
 } from './industriasStyles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MainIndustries'>;
 
-type Company = {
-  id: string;
-  name: string;
-  status: 'incompleto' | 'completo';
-};
-
 const MainIndustriesScreen: React.FC<Props> = ({ navigation }) => {
-  const [companies, setCompanies] = useState<Company[]>([
-    { id: '1', name: 'Bendo', status: 'incompleto' },
-    { id: '2', name: 'Rupers', status: 'incompleto' },
-    { id: '3', name: 'Predilecta', status: 'incompleto' },
-  ]);
+  const [industries, setIndustries] = useState<any[]>([]);
+
+  // Obtém o ID do usuário logado
+  const userId = useSelector((state: RootState) => state.user.user?.id || null);
+  const atividades = useSelector((state: RootState) => state.atividades.atividades);
+
+  // Filtra as atividades para pegar as indústrias associadas ao usuário logado
+  useEffect(() => {
+    const filteredIndustries = atividades
+      .filter((atividade) => atividade.usuario_responsavel === userId)
+      .map((atividade) => ({
+        id: atividade.id,
+        name: atividade.industria || 'Indústria não especificada',
+        status: 'incompleto', // Status inicial para cada indústria
+      }));
+    setIndustries(filteredIndustries);
+  }, [atividades, userId]);
 
   const handleBack = () => {
     navigation.goBack(); // Volta para a tela anterior
   };
 
+  const navigateToActivityPage = () => {
+    navigation.navigate('ActivityPage');
+  };
+
   const toggleStatus = (id: string) => {
-    setCompanies((prevCompanies) =>
-      prevCompanies.map((company) =>
-        company.id === id
-          ? { ...company, status: company.status === 'completo' ? 'incompleto' : 'completo' }
-          : company
+    setIndustries((prevIndustries) =>
+      prevIndustries.map((industry) =>
+        industry.id === id
+          ? { ...industry, status: industry.status === 'completo' ? 'incompleto' : 'completo' }
+          : industry
       )
     );
   };
@@ -52,20 +65,20 @@ const MainIndustriesScreen: React.FC<Props> = ({ navigation }) => {
         <BackButton onPress={handleBack}>
           <Icon name="arrow-left" size={33} color="#fff" />
         </BackButton>
-        <HeaderTitle>Industria</HeaderTitle>
+        <HeaderTitle>Indústrias</HeaderTitle>
       </HeaderContainer>
 
       {/* Conteúdo principal */}
       <ContentContainer>
-        {companies.map((company) => (
-          <CardContainer key={company.id}>
-            <CompanyName>{company.name}</CompanyName>
+        {industries.map((industry) => (
+          <CardContainer key={industry.id} onPress={navigateToActivityPage}>
+            <CompanyName>{industry.name}</CompanyName>
             <RemoveButton
-              status={company.status} // Passa o status atual (incompleto/completo)
-              onPress={() => toggleStatus(company.id)}
+              status={industry.status} // Passa o status atual (incompleto/completo)
+              onPress={() => toggleStatus(industry.id)}
             >
               <Icon
-                name={company.status === 'completo' ? 'check' : 'close'}
+                name={industry.status === 'completo' ? 'check' : 'close'}
                 size={24}
                 color="#fff"
               />

@@ -43,7 +43,7 @@ export const ContentContainer = styled.View`
 `;
 
 // Card de empresa
-export const CardContainer = styled.View`
+export const CardContainer = styled.TouchableOpacity`
   width: 100%;
   background-color: #ffffff;
   border-radius: 10px;

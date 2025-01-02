@@ -33,7 +33,7 @@ export const WelcomeText = styled.Text`
 
 // Texto secundário abaixo das boas-vindas
 export const DateSubText = styled.Text`
-  font-size: 14px;
+  font-size: 16px;
   color: black;
   margin-top: 4px;
 `;
@@ -48,7 +48,7 @@ export const DateHeaderText = styled.Text`
 
 // Texto da data central
 export const DateText = styled.Text`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #333;
   margin-horizontal: 10px;
@@ -79,7 +79,7 @@ export const StatusTitle = styled.Text`
 
 // Título da loja do dia
 export const LojaDay = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: #333;
 `;

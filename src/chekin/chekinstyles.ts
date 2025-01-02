@@ -39,7 +39,7 @@ export const ConfirmationText = styled.Text`
 
 // Nome do local
 export const LocationName = styled.Text`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   color: #ff7e5f;
   text-align: center;
@@ -98,7 +98,6 @@ export const JustifyText = styled.Text`
   font-size: 18px;
   font-weight: normal;
   color: red;
-  text-decoration: underline;
   margin-top: 20px;
   text-align: center;
   font-family: 'Poppins_700Bold';

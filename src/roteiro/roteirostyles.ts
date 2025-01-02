@@ -163,3 +163,4 @@ export const FilterOptionText = styled.Text`
 `;
 
 export const ToggleSwitch = styled.Switch``;
+

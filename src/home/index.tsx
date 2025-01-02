@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Image, View, TouchableOpacity } from 'react-native';
+import { Image, View, TouchableOpacity } from 'react-native';
 import {
   HeaderContainer,
   LogoContainer,
@@ -22,10 +22,9 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
 import Menu from './menu/index';
-import { useSelector, useDispatch } from 'react-redux'; // Importa o hook `useDispatch`
-import { RootState } from '../redux/store';
-import { fetchAtividades } from '../redux/actions/AtividadesActionsAll'; // Importa a ação
-import { AppDispatch } from '../redux/store'
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../redux/store';
+import { fetchAtividades } from '../redux/actions/AtividadesActionsAll';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -34,13 +33,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [atividade, setAtividade] = useState<any | null>(null);
 
-  const dispatch = useDispatch<AppDispatch>(); // Hook para despachar ações
+  const dispatch = useDispatch<AppDispatch>();
 
-  // Obtendo o nome do usuário logado
   const userName = useSelector((state: RootState) => state.user.user?.nome || 'Usuário');
-  const userId = useSelector((state: RootState) => state.user.user?.id || null); // ID do usuário logado
-
-  // Obtendo atividades do Redux
+  const userId = useSelector((state: RootState) => state.user.user?.id || null);
   const atividades = useSelector((state: RootState) => state.atividades.atividades);
 
   const getFirstAndLastName = (fullName: string) => {
@@ -59,16 +55,24 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     });
   };
 
+  const formatDateISO = (date: Date) => {
+    return date.toISOString().split('T')[0]; // Mantém o formato YYYY-MM-DD para comparação
+  };
+
   const handlePreviousDate = () => {
-    const previousDate = new Date(selectedDate);
-    previousDate.setDate(previousDate.getDate() - 1);
-    setSelectedDate(previousDate);
+    setSelectedDate((prev) => {
+      const newDate = new Date(prev);
+      newDate.setDate(newDate.getDate() - 1);
+      return newDate;
+    });
   };
 
   const handleNextDate = () => {
-    const nextDate = new Date(selectedDate);
-    nextDate.setDate(nextDate.getDate() + 1);
-    setSelectedDate(nextDate);
+    setSelectedDate((prev) => {
+      const newDate = new Date(prev);
+      newDate.setDate(newDate.getDate() + 1);
+      return newDate;
+    });
   };
 
   const handleNavigateToRoute = () => {
@@ -79,22 +83,22 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     setIsMenuVisible(!isMenuVisible);
   };
 
+  // Fetch atividades ao montar o componente
+  useEffect(() => {
+    dispatch(fetchAtividades());
+  }, [dispatch]);
+
   // Atualiza a atividade com base na data selecionada e no usuário logado
   useEffect(() => {
-    // Chama a ação para buscar atividades
-    dispatch(fetchAtividades());
-  }, [dispatch]); // Executa ao montar o componente
+    const formattedDateISO = formatDateISO(selectedDate);
 
-  useEffect(() => {
-    // Converte a data selecionada para o formato ISO (YYYY-MM-DD)
-    const formattedDateISO = selectedDate.toISOString().split('T')[0]; // Obtém apenas a data no formato ISO
-  
-    // Filtra atividades pelo usuário responsável e data
     const atividadeDoDia = atividades.find(
       (atividade) =>
-        atividade.data_inicio === formattedDateISO && atividade.usuario_responsavel === userId
+        atividade.usuario_responsavel === userId &&
+        atividade.data_inicio <= formattedDateISO &&
+        atividade.data_fim >= formattedDateISO
     );
-  
+
     if (atividadeDoDia) {
       console.log('Atividade encontrada para a data:', atividadeDoDia);
     } else {
@@ -102,10 +106,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     }
     console.log('Atividades no Redux:', atividades);
     console.log('Usuário logado (ID):', userId);
-  
+
     setAtividade(atividadeDoDia || null);
   }, [selectedDate, atividades, userId]);
-  
+
   return (
     <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
       <StatusBar style="auto" />
@@ -137,11 +141,11 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
       <View style={{ alignItems: 'center', marginTop: 20 }}>
         <DateNavigationContainer>
           <TouchableOpacity onPress={handlePreviousDate}>
-            <Icon name="chevron-left" size={30} color="#333" />
+            <Icon name="chevron-left" size={32} color="#333" />
           </TouchableOpacity>
           <DateText>{formatDate(selectedDate)}</DateText>
           <TouchableOpacity onPress={handleNextDate}>
-            <Icon name="chevron-right" size={30} color="#333" />
+            <Icon name="chevron-right" size={32} color="#333" />
           </TouchableOpacity>
         </DateNavigationContainer>
 
@@ -153,9 +157,14 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
         <StatusCard>
           <StatusItem>
-            <StatusTitle style={{ color: atividade?.status === 'Pendente' ? 'red' : 'green' }}>
-              {atividade ? atividade.status : '0'}
-            </StatusTitle>
+          <StatusTitle style={{ color: atividade ? 'red' : 'green' }}>
+      {atividade ? atividades.filter(
+        (atividade) =>
+          atividade.usuario_responsavel === userId &&
+          atividade.data_inicio <= formatDate(selectedDate) &&
+          atividade.data_fim >= formatDate(selectedDate)
+      ).length : '0'}
+    </StatusTitle>
             <StatusLabel>Pendentes</StatusLabel>
           </StatusItem>
           <StatusItem>
