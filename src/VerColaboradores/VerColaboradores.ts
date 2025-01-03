@@ -9,25 +9,26 @@ export const Container = styled.View`
 // Header com botão de voltar
 export const HeaderContainer = styled.View`
   width: 100%;
-  height: 100px;
+  height: 125px;
   background-color: #ff7e5f;
   flex-direction: row;
   align-items: center;
-  padding: 10px 20px;
-  margin-top: 50px;
+  justify-content: space-between;
+  padding: 0 20px;
+  padding-top: 40px;
 `;
 
 export const HeaderTitle = styled.Text`
-  flex: 1;
-  color: #fff;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
+  color: #ffffff;
+  flex: 1;
   text-align: center;
+  padding-right: 30px;
+  font-family: 'Poppins_700Bold';
 `;
 
 export const BackButton = styled.TouchableOpacity`
-  position: absolute;
-  left: 20px;
   justify-content: center;
   align-items: center;
 `;

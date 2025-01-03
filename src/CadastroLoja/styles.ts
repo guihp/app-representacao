@@ -11,28 +11,35 @@ export const Container = styled.View`
 // Header fixo com nome da página e botão de voltar
 export const Header = styled.View`
   width: 100%;
-  height: 60px;
+  height: 125px;
+  background-color: #ff7e5f;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #ff7e5f; /* Cor sólida para o header */
-  padding: 0 15px;
-  padding-top: ${Platform.OS === 'android' ? `${StatusBar.currentHeight}px` : '0px'};
+  padding: 0 20px;
+  padding-top: 40px;
+  elevation: 4; /* Sombra no Android */
+  shadow-color: #000; /* Sombra no iOS */
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3.5px;
 `;
 
 // Título centralizado no header
 export const HeaderTitle = styled.Text`
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
   color: #ffffff;
-  text-align: center;
   flex: 1;
+  text-align: center;
+  padding-right: 30px;
+  font-family: 'Poppins_700Bold';
 `;
 
 // Botão de voltar no lado esquerdo
 export const BackButton = styled.TouchableOpacity`
-  position: absolute;
-  left: 15px;
+  justify-content: center;
+  align-items: center;
 `;
 
 // Corpo da página

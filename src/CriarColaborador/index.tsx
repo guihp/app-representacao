@@ -27,6 +27,7 @@ import {
   ModalOptionText,
   CloseModalButton,
   CloseModalButtonText,
+  BackButton,
 } from './CriarColaborador';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
@@ -128,6 +129,10 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
     setCargoModalVisible(false);
   };
 
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
   const handleTelasSelect = (tela: string) => {
     setSelectedTelas((prev) =>
       prev.includes(tela) ? prev.filter((item) => item !== tela) : [...prev, tela]
@@ -158,6 +163,9 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
     <Container>
       {/* Cabeçalho */}
       <HeaderContainer>
+      <BackButton onPress={handleBack}>
+          <Icon name="arrow-left" size={30} color="#FFF" />
+        </BackButton>
         <HeaderTitle>Adicionar Colaborador</HeaderTitle>
       </HeaderContainer>
 

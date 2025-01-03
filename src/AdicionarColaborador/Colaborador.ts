@@ -9,13 +9,18 @@ export const Container = styled.View`
 // Cabeçalho
 export const HeaderContainer = styled.View`
   width: 100%;
-  height: 100px;
+  height: 125px;
   background-color: #ff7e5f;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
   padding-top: 40px;
+  elevation: 4; /* Sombra no Android */
+  shadow-color: #000; /* Sombra no iOS */
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3.5px;
 `;
 
 // Botão de voltar

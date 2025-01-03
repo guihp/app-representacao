@@ -3,13 +3,18 @@ import styled from 'styled-components/native';
 // Cabeçalho com gradiente
 export const HeaderContainer = styled.View`
   width: 100%;
-  height: 100px; /* Altura fixa */
+  height: 125px;
   background-color: #ff7e5f;
-  flex-direction: row; /* Itens alinhados em linha */
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between; /* Espaçamento entre os itens */
+  justify-content: space-between;
   padding: 0 20px;
-  padding-top: 40px; /* Espaço para o status bar */
+  padding-top: 40px;
+  elevation: 4; /* Sombra no Android */
+  shadow-color: #000; /* Sombra no iOS */
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3.5px;
 `;
 
 // Ícone de voltar
@@ -26,11 +31,13 @@ export const FilterIcon = styled.TouchableOpacity`
 
 // Texto do título do cabeçalho
 export const HeaderTitle = styled.Text`
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
   color: #ffffff;
+  flex: 1;
   text-align: center;
-  flex: 1; /* Para centralizar o texto */
+  padding-right: 30px;
+  font-family: 'Poppins_700Bold';
 `;
 
 // Contêiner de navegação de datas
@@ -39,7 +46,6 @@ export const DateNavigationContainer = styled.View`
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  background-color: #ffffff;
 `;
 
 // Botões de navegação de data
@@ -100,13 +106,14 @@ export const CardDetails = styled.Text`
   margin-top: 5px;
 `;
 
-// Adicione este novo estilo para o nome do mês
+// Estilo para o nome do mês
 export const MonthTitle = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: #333;
   text-align: center;
-  margin-bottom: 5px; /* Espaçamento entre o mês e a barra de navegação */
+  margin-bottom: 14px; /* Espaçamento entre o mês e a barra de navegação */
+  margin-top: 14px;
 `;
 
 // Estilo do popup

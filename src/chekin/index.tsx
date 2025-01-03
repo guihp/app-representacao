@@ -59,7 +59,6 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
           backgroundColor: '#FF966C',
           width: '100%',
           height: 350,
-          paddingVertical: 50,
           alignItems: 'center',
           justifyContent: 'center',
           borderBottomLeftRadius: 30,

@@ -10,34 +10,36 @@ export const Container = styled.View`
 // Cabeçalho com título e botão de voltar
 export const Header = styled.View`
   width: 100%;
-  height: 12%;
+  height: 125px;
   background-color: #ff7e5f;
-  padding-top: ${Platform.OS === 'android' ? `${StatusBar.currentHeight || 20}px` : '40px'};
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  position: relative;
-  elevation: 4;
-  margin-bottom: 16px;
+  justify-content: space-between;
+  padding: 0 20px;
+  padding-top: 40px;
+  elevation: 4; /* Sombra no Android */
+  shadow-color: #000; /* Sombra no iOS */
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3.5px;
 `;
 
 // Botão de voltar no cabeçalho
 export const BackButton = styled.TouchableOpacity`
-  position: absolute;
-  left: 24px;
-  top: ${Platform.OS === 'android' ? `${(StatusBar.currentHeight || 20) + 20}px` : '10px'};
+  justify-content: center;
+  align-items: center;
 `;
 
 // Título do cabeçalho
 export const HeaderTitle = styled.Text`
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   color: #ffffff;
-`;
-
-// Lista de treinamentos
-export const TrainingList = styled.FlatList`
   flex: 1;
-  padding: 10px 15px;
+  text-align: center;
+  padding-right: 30px;
+  font-family: 'Poppins_700Bold';
+  
 `;
 
 // Card de treinamento
@@ -48,7 +50,7 @@ export const TrainingCard = styled.View`
   background-color: #ffffff;
   border-radius: 12px;
   padding: 15px 20px;
-  margin-bottom: 12px;
+  margin-top: 12px;
   margin-left: 15px;
   margin-right: 15px;
   elevation: 4; /* Sombra no Android */

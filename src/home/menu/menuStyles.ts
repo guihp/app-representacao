@@ -28,6 +28,7 @@ export const MenuContainer = styled.View`
 // Header do menu
 export const MenuHeader = styled.View`
   width: 100%;
+  height: 100px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -50,7 +51,6 @@ export const MenuIcon = styled.TouchableOpacity`
 
 // Itens do menu
 export const MenuItem = styled.TouchableOpacity`
-  top: 20;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

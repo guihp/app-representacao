@@ -17,24 +17,19 @@ export const Container2 = styled.View`
 // Header principal
 export const Header = styled.View`
   width: 100%;
-  height: 12%;
+  height: 125px;
   background-color: #ff7e5f;
-  padding-top: ${Platform.OS === 'android' ? `${StatusBar.currentHeight || 20}px` : '40px'};
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
-  elevation: 5; /* Sombra no Android */
-  shadow-color: #000; /* Sombra no iOS */
-  shadow-offset: 0px 2px;
-  shadow-opacity: 0.2;
-  shadow-radius: 3px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  padding-top: 40px;
 `;
 
 // Botão de voltar
 export const BackButton = styled.TouchableOpacity`
-  position: absolute;
-  left: 20px;
-  top: ${Platform.OS === 'android' ? `${(StatusBar.currentHeight || 20) + 28}px` : '10px'};
+  justify-content: center;
+  align-items: center;
 `;
 
 // Título do Header
@@ -42,6 +37,10 @@ export const Title = styled.Text`
   font-size: 22px;
   font-weight: bold;
   color: #ffffff;
+  flex: 1;
+  text-align: center;
+  padding-right: 30px;
+  font-family: 'Poppins_700Bold';
 `;
 
 // Rótulo dos campos

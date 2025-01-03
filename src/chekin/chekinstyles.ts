@@ -62,7 +62,7 @@ export const ActionButton = styled.TouchableOpacity`
   background-color: #ff7e5f;
   padding: 15px 20px;
   border-radius: 30px;
-  margin-vertical: 10px; /* Espaçamento vertical entre os botões */
+  margin-top: 15px;
   width: 80%;
   align-items: center;
 `;

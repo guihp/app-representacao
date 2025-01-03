@@ -9,20 +9,24 @@ export const Container = styled.View`
 // Header retangular
 export const HeaderContainer = styled.View`
   width: 100%;
-  height: 100px; /* Altura fixa */
+  height: 125px;
   background-color: #ff7e5f;
-  flex-direction: row; /* Itens alinhados em linha */
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between; /* Espaçamento entre os itens */
+  justify-content: space-between;
   padding: 0 20px;
-  padding-top: 40px; /* Espaço para o status bar */
+  padding-top: 40px;
+  elevation: 4; /* Sombra no Android */
+  shadow-color: #000; /* Sombra no iOS */
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3.5px;
 `;
 
 // Botão de voltar
 export const BackButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  padding: 10px;
 `;
 
 // Título do header
@@ -30,10 +34,10 @@ export const HeaderTitle = styled.Text`
   font-size: 22px;
   font-weight: bold;
   color: #ffffff;
-  flex: 1; /* Para centralizar o título */
+  flex: 1;
   text-align: center;
-  font-family: 'Poppins_700Bold'; /* Fonte Poppins */
   padding-right: 30px;
+  font-family: 'Poppins_700Bold';
 `;
 
 // Área de conteúdo principal
@@ -88,7 +92,7 @@ export const ActionButton = styled.TouchableOpacity<{ color: string }>`
   background-color: ${(props) => props.color || '#ff7e5f'};
   border-radius: 10px;
   align-items: center;
-  margin: 0 10px; /* Espaçamento entre os botões */
+  margin: 34px 10px; /* Espaçamento entre os botões */
 `;
 
 // Texto dos botões de ação
