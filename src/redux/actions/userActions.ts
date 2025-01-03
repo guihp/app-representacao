@@ -15,12 +15,14 @@ export const login = (cpf: string, senha: string) => async (dispatch: any) => {
         type: 'LOGIN_SUCCESS',
         payload: response.user, // O usuário logado é salvo no estado global
       });
+      return response.user;
     } else {
       // Dispara uma ação de erro caso o login falhe
       dispatch({
         type: 'LOGIN_FAILURE',
         error: response.message,
       });
+      throw new Error(response.message);
     }
   } catch (error: any) {
     // Dispara uma ação de erro caso haja uma falha no processo
@@ -28,6 +30,7 @@ export const login = (cpf: string, senha: string) => async (dispatch: any) => {
       type: 'LOGIN_FAILURE',
       error: error.message,
     });
+    throw error;
   }
 };
 

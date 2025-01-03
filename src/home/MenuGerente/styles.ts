@@ -63,4 +63,4 @@ export const OptionText = styled.Text`
 export const OptionIcon = styled(Icon)`
   color: #ff7e5f;
   font-size: 32px;
-`;
+`; 

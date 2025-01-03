@@ -22,6 +22,14 @@ import { login } from '../redux/actions/userActions';
 import { AppDispatch } from '../redux/store';
 import { getRandomVerse } from '../services/bibleService';
 
+type UserType = {
+  id: string;
+  nome: string;
+  email: string;
+  telefone: string;
+  cargo: string;
+};
+
 const LoginScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Login'>>();
   const dispatch: AppDispatch = useDispatch(); // Obtendo o dispatch do Redux
@@ -49,15 +57,20 @@ const LoginScreen = () => {
         return;
       }
 
-      // Chama a ação de login com Redux
-      dispatch(login(cpf, password))
-        .then(() => {
-          Alert.alert('Sucesso', 'Login realizado com sucesso!');
-          navigation.navigate('Home');
-        })
-        .catch((error: any) => {
-          Alert.alert('Erro', error || 'CPF ou senha incorretos.');
-        });
+      const user: UserType | undefined = await dispatch(login(cpf, password));
+
+      if (!user) {
+        Alert.alert('Erro', 'Usuário não encontrado.');
+        return;
+      }
+
+      if (user.cargo === 'Promotor') {
+        navigation.navigate('Home'); // Tela para promotores
+      } else {
+        navigation.navigate('HomeGerente'); // Tela para gerentes
+      }
+
+      Alert.alert('Sucesso', 'Login realizado com sucesso!');
     } catch (error: any) {
       console.error('Erro no login:', error.message);
       Alert.alert('Erro', 'Ocorreu um problema ao realizar o login.');
@@ -95,7 +108,11 @@ const LoginScreen = () => {
         }}
       >
         <LogoContainer>
-          <Image source={require('../assets/images/logo.png')} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
+          <Image
+            source={require('../assets/images/logo.png')}
+            style={{ width: '100%', height: '100%' }}
+            resizeMode="contain"
+          />
         </LogoContainer>
         <Title>Login</Title>
       </LinearGradient>
