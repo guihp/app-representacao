@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Image, View, TouchableOpacity } from 'react-native';
 import {
-  HeaderContainer,
   LogoContainer,
   WelcomeText,
   DateSubText,

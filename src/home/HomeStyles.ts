@@ -1,16 +1,5 @@
 import styled from 'styled-components/native';
 
-// Container principal com fundo gradiente
-export const HeaderContainer = styled.View`
-  width: 100%;
-  height: 40%;
-  background-color: #ff7e5f; // Adapte para sua cor de gradiente desejada
-  border-bottom-left-radius: 60px;
-  border-bottom-right-radius: 60px;
-  align-items: center;
-  justify-content: center;
-`;
-
 // Container do logo
 export const LogoContainer = styled.View`
   width: 100px;

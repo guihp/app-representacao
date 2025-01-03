@@ -15,6 +15,7 @@ export type RootStackParamList = {
   TreinamentoScreen: undefined;
   AdicionarAtividades: undefined;
   ActivityPage: undefined;
+  HomeGerente: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
