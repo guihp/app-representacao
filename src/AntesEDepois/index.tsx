@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { View, Alert } from 'react-native';
+import { Alert } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import ImageResizer from 'react-native-image-resizer';
+import * as ImageManipulator from 'expo-image-manipulator';
+import { useDispatch } from 'react-redux';
+import { updateIndustryStatus } from '../redux/actions/industriaActions';
 import {
   Container,
   Header,
@@ -18,9 +22,21 @@ import {
   SendButtonText,
 } from './styles';
 
-const ActivityPage: React.FC = () => {
+type RootStackParamList = {
+  ActivityPage: { industryName: string; industryId: string };
+};
+
+// Tipagem das props
+type Props = {
+  route: RouteProp<RootStackParamList, 'ActivityPage'>;
+  navigation: NativeStackNavigationProp<RootStackParamList, 'ActivityPage'>;
+};
+
+const ActivityPage: React.FC<Props> = ({ route, navigation }) => {
   const [photosBefore, setPhotosBefore] = useState<string | null>(null);
   const [photosAfter, setPhotosAfter] = useState<string | null>(null);
+  const { industryName, industryId } = route.params;
+  const dispatch = useDispatch();
 
   const handleOpenCamera = async (setPhoto: React.Dispatch<React.SetStateAction<string | null>>) => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -42,15 +58,12 @@ const ActivityPage: React.FC = () => {
 
   const resizeImage = async (uri: string) => {
     try {
-      const resizedImage = await ImageResizer.createResizedImage(
+      const manipulatedImage = await ImageManipulator.manipulateAsync(
         uri,
-        800,
-        600,
-        'JPEG',
-        70,
-        0
+        [{ resize: { width: 800, height: 600 } }],
+        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
       );
-      return resizedImage.uri;
+      return manipulatedImage.uri;
     } catch (error) {
       console.error('Erro ao redimensionar a imagem:', error);
       return uri;
@@ -84,19 +97,22 @@ const ActivityPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch('https://seu-servidor.com/api/sync', {
+      const response = await fetch('https://n8n-sgo8ksokg404ocg8sgc4sooc.vemprajogo.com/webhook/haribo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          industryName,
           photosBefore: base64Before,
           photosAfter: base64After,
         }),
       });
 
       if (response.ok) {
+        dispatch(updateIndustryStatus(industryId, 'completo')); // Atualiza o status no Redux
         Alert.alert('Sucesso', 'Fotos enviadas com sucesso!');
+        navigation.goBack(); // Volta para a tela anterior
       } else {
         console.error('Erro no servidor:', await response.text());
         Alert.alert('Erro', 'Falha ao enviar os dados.');
@@ -109,15 +125,13 @@ const ActivityPage: React.FC = () => {
 
   return (
     <Container>
-      {/* Header */}
       <Header>
-        <BackButton>
+        <BackButton onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" size={28} color="#ffffff" />
         </BackButton>
-        <HeaderTitle>Antes e Depois</HeaderTitle>
+        <HeaderTitle>{industryName}</HeaderTitle>
       </Header>
 
-      {/* Atividade 1 */}
       <ActivitySection>
         <ActivityTitle>1 - Foto Antes *</ActivityTitle>
         <PhotoButton onPress={() => handleOpenCamera(setPhotosBefore)}>
@@ -131,7 +145,6 @@ const ActivityPage: React.FC = () => {
         </PhotoInfo>
       </ActivitySection>
 
-      {/* Atividade 2 */}
       <ActivitySection>
         <ActivityTitle>2 - Foto Depois *</ActivityTitle>
         <PhotoButton onPress={() => handleOpenCamera(setPhotosAfter)}>
@@ -145,7 +158,6 @@ const ActivityPage: React.FC = () => {
         </PhotoInfo>
       </ActivitySection>
 
-      {/* Botão de enviar */}
       <SendButton onPress={handleSend}>
         <SendButtonText>Enviar</SendButtonText>
       </SendButton>

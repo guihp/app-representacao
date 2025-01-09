@@ -49,7 +49,7 @@ const HomeGerente: React.FC<Props> = ({ navigation }) => {
       >
         <LogoContainer>
           <Image
-            source={require('../../assets/images/logo.png')}
+            source={require('../../assets/images/testee.jpg')}
             style={{ width: '100%', height: '100%' }}
             resizeMode="contain"
           />

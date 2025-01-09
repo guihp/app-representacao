@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../redux/actions/userActions';
 import { AppDispatch } from '../redux/store';
 import { getRandomVerse } from '../services/bibleService';
+import { ScrollView } from 'react-native';
 
 type UserType = {
   id: string;
@@ -94,7 +95,9 @@ const LoginScreen = () => {
   }, []);
 
   return (
+    
     <Container>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}>
       <StatusBar style="auto" />
       <LinearGradient
         colors={['#ff7e5f', '#feb47b']}
@@ -109,9 +112,9 @@ const LoginScreen = () => {
       >
         <LogoContainer>
           <Image
-            source={require('../assets/images/logo.png')}
+            source={require('../assets/images/testee.jpg')}
             style={{ width: '100%', height: '100%' }}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         </LogoContainer>
         <Title>Login</Title>
@@ -177,6 +180,7 @@ const LoginScreen = () => {
           </BibleMessageText>
         </BibleMessageContainer>
       </View>
+      </ScrollView> 
     </Container>
   );
 };

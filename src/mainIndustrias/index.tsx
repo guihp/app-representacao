@@ -15,14 +15,15 @@ import {
 } from './industriasStyles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { updateIndustryStatus } from '../redux/actions/industriaActions';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MainIndustries'>;
 
 const MainIndustriesScreen: React.FC<Props> = ({ navigation }) => {
   const [industries, setIndustries] = useState<any[]>([]);
+  const dispatch = useDispatch();
 
   // Obtém o ID do usuário logado
   const userId = useSelector((state: RootState) => state.user.user?.id || null);
@@ -35,7 +36,7 @@ const MainIndustriesScreen: React.FC<Props> = ({ navigation }) => {
       .map((atividade) => ({
         id: atividade.id,
         name: atividade.industria || 'Indústria não especificada',
-        status: 'incompleto', // Status inicial para cada indústria
+        status: atividade.status || 'incompleto', // Pega o status do Redux ou define como 'incompleto'
       }));
     setIndustries(filteredIndustries);
   }, [atividades, userId]);
@@ -44,8 +45,8 @@ const MainIndustriesScreen: React.FC<Props> = ({ navigation }) => {
     navigation.goBack(); // Volta para a tela anterior
   };
 
-  const navigateToActivityPage = () => {
-    navigation.navigate('ActivityPage');
+  const navigateToActivityPage = (industry: any) => {
+    navigation.navigate('ActivityPage', { industryName: industry.name, industryId: industry.id });
   };
 
   const toggleStatus = (id: string) => {
@@ -71,7 +72,7 @@ const MainIndustriesScreen: React.FC<Props> = ({ navigation }) => {
       {/* Conteúdo principal */}
       <ContentContainer>
         {industries.map((industry) => (
-          <CardContainer key={industry.id} onPress={navigateToActivityPage}>
+          <CardContainer key={industry.id} onPress={() => navigateToActivityPage(industry)}>
             <CompanyName>{industry.name}</CompanyName>
             <RemoveButton
               status={industry.status} // Passa o status atual (incompleto/completo)

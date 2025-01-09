@@ -56,3 +56,9 @@ export const deleteindustria = (industriaId: number) => async (dispatch: Dispatc
     console.error('Erro ao excluir loja:', error);
   }
 };
+
+
+export const updateIndustryStatus = (industryId: string, status: string) => ({
+  type: 'UPDATE_INDUSTRY_STATUS',
+  payload: { industryId, status },
+});

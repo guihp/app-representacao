@@ -1,6 +1,5 @@
 import React from 'react';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import {
   MenuContainer,
   MenuHeader,

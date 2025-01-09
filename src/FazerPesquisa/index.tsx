@@ -23,6 +23,7 @@ import {
   ModalButton,
   ModalButtonText,
 } from './styles';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 const options = [
   { key: 'MA', label: 'Maranhão (MA)' },
@@ -61,15 +62,12 @@ const FazerPesquisa: React.FC = ({ navigation }: any) => {
 
   const resizeImage = async (uri: string) => {
     try {
-      const resizedImage = await ImageResizer.createResizedImage(
+      const manipulatedImage = await ImageManipulator.manipulateAsync(
         uri, // Caminho da imagem original
-        800, // Nova largura
-        600, // Nova altura
-        'JPEG', // Formato da imagem
-        70, // Qualidade (0-100)
-        0 // Rotação
+        [{ resize: { width: 800, height: 600 } }], // Nova largura
+        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }, // Nova altura
       );
-      return resizedImage.uri; // Retorna o caminho da imagem redimensionada
+      return manipulatedImage.uri; // Retorna o caminho da imagem redimensionada
     } catch (error) {
       console.error('Erro ao redimensionar a imagem:', error);
       return uri; // Retorna a URI original em caso de erro

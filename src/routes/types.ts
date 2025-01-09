@@ -14,7 +14,7 @@ export type RootStackParamList = {
   CadastrarLoja: undefined;
   TreinamentoScreen: undefined;
   AdicionarAtividades: undefined;
-  ActivityPage: undefined;
+  ActivityPage: { industryName: string; industryId: string };
   HomeGerente: undefined;
 };
 
