@@ -54,6 +54,11 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
     navigation.navigate('AdicionarAtividades');
   };
 
+  const handlValidade = () => {
+    onClose();
+    navigation.navigate('Validade');
+  };
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -145,6 +150,18 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
               <Icon name="magnify" size={24} color="#FF7E5F" />
             </MenuItemIcon>
             <MenuText>Fazer Pesquisa</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
+
+        <MenuItem onPress={handlValidade}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <Icon name="magnify" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>Validade</MenuText>
           </MenuItemLeft>
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />

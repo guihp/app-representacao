@@ -57,7 +57,6 @@ export async function updateUserStatus(userId: number, status: boolean) {
 type Collaborator = {
     id: number;
     nome: string;
-    email: string;
     telefone: string;
     cpf: string;
     cargo: string;

@@ -16,6 +16,8 @@ import TreinamentoScreen from '../treinamento';
 import AdicionarAtividades from '../AdicionarAtividades/TelaPrincipal/CriarAtividade';
 import ActivityPage from '../AntesEDepois';
 import HomeGerente from '../home/MenuGerente';
+import DegustacaoPage from '../Degustacao';
+import Validade from '../Validade';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Definindo todas as rotas, incluindo a nova tela
@@ -35,6 +37,8 @@ type RootStackParamList = {
   AdicionarAtividades: undefined;
   ActivityPage: { industryName: string; industryId: string };
   HomeGerente: undefined;
+  DegustacaoPage: { industryName: string; industryId: string };
+  Validade: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
@@ -118,6 +122,16 @@ const AppRoutes = () => {
         <Stack.Screen
           name="HomeGerente" // Nome da nova rota
           component={HomeGerente} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="DegustacaoPage" // Nome da nova rota
+          component={DegustacaoPage} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="Validade" // Nome da nova rota
+          component={Validade} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
       </Stack.Navigator>

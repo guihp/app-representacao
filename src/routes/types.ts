@@ -16,6 +16,8 @@ export type RootStackParamList = {
   AdicionarAtividades: undefined;
   ActivityPage: { industryName: string; industryId: string };
   HomeGerente: undefined;
+  DegustacaoPage: { industryName: string; industryId: string };
+  Validade: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;

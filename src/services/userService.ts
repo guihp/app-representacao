@@ -30,7 +30,6 @@ export const hashPassword = async (password: string): Promise<string> => {
 // Função para salvar usuário no Supabase
 export async function saveUser(data: {
   nome: string;
-  email: string;
   telefone: string;
   cpf: string;
   senha: string;
@@ -54,7 +53,6 @@ export async function saveUser(data: {
       .insert([
         {
           nome: data.nome,
-          email: data.email,
           telefone: data.telefone,
           cpf: data.cpf,
           senha: hashedPassword, // Armazena apenas o hash no banco
@@ -75,7 +73,6 @@ export async function saveUser(data: {
     // Enviando ao webhook com a senha original
     const webhookPayload = {
       nome: data.nome,
-      email: data.email,
       telefone: data.telefone,
       cpf: data.cpf,
       senha: originalPassword, // Envia a senha original ao webhook

@@ -37,7 +37,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'VerColaboradores'>;
 type Collaborator = {
   id: number;
   nome: string;
-  email: string;
   telefone: string;
   cpf: string;
   cargo: string;
@@ -195,7 +194,6 @@ const VerColaboradores: React.FC<Props> = ({ navigation }) => {
             {selectedCollaborator && (
               <>
                 <ModalText>Nome: {selectedCollaborator.nome}</ModalText>
-                <ModalText>Email: {selectedCollaborator.email}</ModalText>
                 <ModalText>Telefone: {selectedCollaborator.telefone}</ModalText>
                 <ModalText>CPF: {selectedCollaborator.cpf}</ModalText>
                 <ModalText>Cargo: {selectedCollaborator.cargo}</ModalText>
@@ -222,11 +220,6 @@ const VerColaboradores: React.FC<Props> = ({ navigation }) => {
                   value={editData.nome}
                   onChangeText={(text) => setEditData({ ...editData, nome: text })}
                   placeholder="Nome"
-                />
-                <EditModalInput
-                  value={editData.email}
-                  onChangeText={(text) => setEditData({ ...editData, email: text })}
-                  placeholder="Email"
                 />
                 <EditModalInput
                   value={editData.telefone}

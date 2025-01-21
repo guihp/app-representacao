@@ -38,7 +38,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'CriarColaboradores'>;
 
 const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [cpf, setCpf] = useState('');
   const [address, setAddress] = useState('');
@@ -55,10 +54,6 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleSave = () => {
-    if (!email.includes('@')) {
-      Alert.alert('Erro', 'Por favor, insira um e-mail válido.');
-      return;
-    }
     setConfirmModalVisible(true); // Abre o modal de confirmação
   };
 
@@ -68,7 +63,6 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
       // Dados do colaborador
       const userData = {
         nome: name,
-        email,
         telefone: phone,
         cpf,
         senha: password,
@@ -93,7 +87,6 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
               onPress: () => {
                 // Limpa os campos
                 setName('');
-                setEmail('');
                 setPhone('');
                 setCpf('');
                 setAddress('');
@@ -177,11 +170,6 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
           onChangeText={setName}
         />
         <Input
-          placeholder="E-mail"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <Input
           placeholder="Telefone"
           value={phone}
           onChangeText={formatPhone}
@@ -231,34 +219,12 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
         <ModalContainer>
           <ModalContent>
             <ModalTitle>Selecionar Cargo</ModalTitle>
-            {['Dono', 'Gerente', 'Promotor'].map((cargo) => (
+            {['Dono', 'Gerente', 'Promotor', 'Degustação'].map((cargo) => (
               <ModalOption key={cargo} onPress={() => handleCargoSelect(cargo)}>
                 <ModalOptionText>{cargo}</ModalOptionText>
               </ModalOption>
             ))}
             <CloseModalButton onPress={() => setCargoModalVisible(false)}>
-              <CloseModalButtonText>Fechar</CloseModalButtonText>
-            </CloseModalButton>
-          </ModalContent>
-        </ModalContainer>
-      </Modal>
-
-      {/* Modal de Telas */}
-      <Modal visible={isTelasModalVisible} transparent animationType="slide">
-        <ModalContainer>
-          <ModalContent>
-            <ModalTitle>Selecionar Telas</ModalTitle>
-            {['Tela Padrão Promotor', 'Tela Padrão Gerente'].map((tela) => (
-              <ModalOption
-                key={tela}
-                onPress={() => handleTelasSelect(tela)}
-              >
-                <ModalOptionText>
-                  {selectedTelas.includes(tela) ? `✔ ${tela}` : tela}
-                </ModalOptionText>
-              </ModalOption>
-            ))}
-            <CloseModalButton onPress={() => setTelasModalVisible(false)}>
               <CloseModalButtonText>Fechar</CloseModalButtonText>
             </CloseModalButton>
           </ModalContent>
@@ -271,7 +237,6 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
           <ModalContent>
             <ModalTitle>Confirmar Dados</ModalTitle>
             <ModalText>Nome: {name}</ModalText> 
-            <ModalText>E-mail: {email}</ModalText>
             <ModalText>Telefone: {phone}</ModalText>
             <ModalText>CPF: {cpf}</ModalText>
             <ModalText>Endereço: {address}</ModalText>

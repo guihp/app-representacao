@@ -93,9 +93,6 @@ const MainIndustriesScreen: React.FC<Props> = ({ navigation }) => {
         <ActionButton color="#FF3D00" onPress={() => navigation.navigate('Justification')}>
           <ActionButtonText>Justificar</ActionButtonText>
         </ActionButton>
-        <ActionButton color="#FFA500" onPress={() => navigation.navigate('Justification')}>
-          <ActionButtonText>Check-out</ActionButtonText>
-        </ActionButton>
       </ActionContainer>
     </Container>
   );
