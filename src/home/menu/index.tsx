@@ -159,7 +159,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
         <MenuItem onPress={handlValidade}>
           <MenuItemLeft>
             <MenuItemIcon>
-              <Icon name="magnify" size={24} color="#FF7E5F" />
+              <Icon name="calendar-alert" size={24} color="#FF7E5F" />
             </MenuItemIcon>
             <MenuText>Validade</MenuText>
           </MenuItemLeft>

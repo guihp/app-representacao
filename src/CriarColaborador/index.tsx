@@ -156,7 +156,7 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
     <Container>
       {/* Cabeçalho */}
       <HeaderContainer>
-      <BackButton onPress={handleBack}>
+        <BackButton onPress={handleBack}>
           <Icon name="arrow-left" size={30} color="#FFF" />
         </BackButton>
         <HeaderTitle>Adicionar Colaborador</HeaderTitle>

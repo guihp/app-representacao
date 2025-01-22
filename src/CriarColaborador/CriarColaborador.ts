@@ -21,6 +21,7 @@ export const HeaderContainer = styled.View`
 export const BackButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
+  padding: 20px;
 `;
 
 export const HeaderTitle = styled.Text`

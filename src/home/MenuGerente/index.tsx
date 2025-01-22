@@ -86,6 +86,11 @@ const HomeGerente: React.FC<Props> = ({ navigation }) => {
           <OptionText>Treinamento</OptionText>
         </OptionCard>
 
+        <OptionCard onPress={() => navigation.navigate('MetasPage')}>
+          <OptionIcon name="checkbox-marked-circle-outline" />
+          <OptionText>Metas</OptionText>
+        </OptionCard>
+
       </OptionsContainer>
     </View>
   );

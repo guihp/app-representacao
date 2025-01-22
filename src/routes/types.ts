@@ -18,6 +18,7 @@ export type RootStackParamList = {
   HomeGerente: undefined;
   DegustacaoPage: { industryName: string; industryId: string };
   Validade: undefined;
+  MetasPage: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
