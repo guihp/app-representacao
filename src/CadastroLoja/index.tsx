@@ -18,8 +18,8 @@ const CadastroLoja = ({ navigation }: any) => {
   const [nomeLoja, setNomeLoja] = useState('');
   const [enderecoLoja, setEnderecoLoja] = useState('');
   const [localizacao, setLocalizacao] = useState<{ latitude: number; longitude: number }>({
-    latitude: -15.7942, // Latitude inicial (Brasília como exemplo)
-    longitude: -47.8822, // Longitude inicial
+    latitude: -15.7942,
+    longitude: -47.8822,
   });
 
   const handleBack = () => {
@@ -47,9 +47,9 @@ const CadastroLoja = ({ navigation }: any) => {
       return;
     }
 
-    // Simular envio ao banco de dados
+    // Tenho que adicionar o codigo ainda para salvar
     Alert.alert('Sucesso', 'Loja cadastrada com sucesso!');
-    navigation.goBack(); // Voltar à página anterior
+    navigation.goBack(); 
   };
 
   return (

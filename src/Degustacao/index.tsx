@@ -34,7 +34,6 @@ type Props = {
 
 const DegustacaoPage: React.FC<Props> = ({ route, navigation }) => {
   const [photosBefore, setPhotosBefore] = useState<string | null>(null);
-  const [photosAfter, setPhotosAfter] = useState<string | null>(null);
   const { industryName, industryId } = route.params;
   const dispatch = useDispatch();
 
@@ -83,15 +82,14 @@ const DegustacaoPage: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const handleSend = async () => {
-    if (!photosBefore || !photosAfter) {
-      Alert.alert('Erro', 'Você precisa adicionar ao menos uma foto antes e uma depois.');
+    if (!photosBefore) {
+      Alert.alert('Erro', 'Você precisa adicionar ao menos uma foto.');
       return;
     }
 
     const base64Before = await convertUriToBase64(photosBefore);
-    const base64After = await convertUriToBase64(photosAfter);
 
-    if (!base64Before || !base64After) {
+    if (!base64Before) {
       Alert.alert('Erro', 'Falha ao processar as imagens.');
       return;
     }
@@ -105,7 +103,6 @@ const DegustacaoPage: React.FC<Props> = ({ route, navigation }) => {
         body: JSON.stringify({
           industryName,
           photosBefore: base64Before,
-          photosAfter: base64After,
         }),
       });
 

@@ -49,7 +49,7 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
   useEffect(() => {
     if (!user) {
       Alert.alert('Erro', 'Usuário não autenticado. Faça login para continuar.');
-      navigation.replace('Login'); // Redireciona para a página de login
+      navigation.replace('Login');
     }
   }, [user]);
 
@@ -197,8 +197,8 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
         visible={isModalSupermercadosVisible}
         onClose={() => setModalSupermercadosVisible(false)}
         onSelectLoja={(loja) => {
-          setLojaSelecionada(loja.Nome); // Pega o nome da loja
-          setModalSupermercadosVisible(false); // Fecha o modal
+          setLojaSelecionada(loja.Nome);
+          setModalSupermercadosVisible(false);
         }}
       />
 
@@ -206,8 +206,8 @@ const AdicionarAtividades: React.FC = ({ navigation }: any) => {
         visible={isModalIndustriaVisible}
         onClose={() => setModalIndustriaVisible(false)}
         onSelectLoja={(Industria) => {
-          setIndustriaSelecionada(Industria.Nome); // Pega o nome da loja
-          setModalIndustriaVisible(false); // Fecha o modal
+          setIndustriaSelecionada(Industria.Nome);
+          setModalIndustriaVisible(false);
         }}
       />
 

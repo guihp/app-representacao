@@ -112,7 +112,7 @@ const ActivityPage: React.FC<Props> = ({ route, navigation }) => {
       if (response.ok) {
         dispatch(updateIndustryStatus(industryId, 'completo')); // Atualiza o status no Redux
         Alert.alert('Sucesso', 'Fotos enviadas com sucesso!');
-        navigation.goBack(); // Volta para a tela anterior
+        navigation.goBack();
       } else {
         console.error('Erro no servidor:', await response.text());
         Alert.alert('Erro', 'Falha ao enviar os dados.');

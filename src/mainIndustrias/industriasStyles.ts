@@ -43,7 +43,7 @@ export const HeaderTitle = styled.Text`
 // Área de conteúdo principal
 export const ContentContainer = styled.View`
   flex: 1;
-  padding: 20px; /* Espaçamento interno */
+  padding: 20px;
 `;
 
 // Card de empresa
@@ -56,7 +56,7 @@ export const CardContainer = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  elevation: 5; /* Sombreamento no Android */
+  elevation: 5; 
 `;
 
 // Nome da empresa
@@ -73,7 +73,7 @@ export const RemoveButton = styled.TouchableOpacity<{ status: 'incompleto' | 'co
     props.status === 'completo' ? '#4CAF50' : '#FF3D00'}; /* Verde para completo, vermelho para incompleto */
   width: 40px;
   height: 40px;
-  border-radius: 20px; /* Arredondado */
+  border-radius: 20px;
   justify-content: center;
   align-items: center;
 `;
@@ -92,7 +92,7 @@ export const ActionButton = styled.TouchableOpacity<{ color: string }>`
   background-color: ${(props) => props.color || '#ff7e5f'};
   border-radius: 10px;
   align-items: center;
-  margin: 34px 10px; /* Espaçamento entre os botões */
+  margin: 34px 10px; 
 `;
 
 // Texto dos botões de ação

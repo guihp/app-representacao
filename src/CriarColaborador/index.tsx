@@ -43,9 +43,7 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
   const [address, setAddress] = useState('');
   const [password, setPassword] = useState('');
   const [selectedCargo, setSelectedCargo] = useState('');
-  const [selectedTelas, setSelectedTelas] = useState<string[]>([]);
   const [isCargoModalVisible, setCargoModalVisible] = useState(false);
-  const [isTelasModalVisible, setTelasModalVisible] = useState(false);
   const [isConfirmModalVisible, setConfirmModalVisible] = useState(false);
 
   const generatePassword = () => {
@@ -54,7 +52,7 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
   };
 
   const handleSave = () => {
-    setConfirmModalVisible(true); // Abre o modal de confirmação
+    setConfirmModalVisible(true);
   };
 
   const handleConfirmSave = async () => {
@@ -80,7 +78,7 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
           [
             {
               text: 'Não',
-              onPress: () => navigation.goBack(), // Retorna à página anterior
+              onPress: () => navigation.goBack(),
             },
             {
               text: 'Sim',
@@ -112,7 +110,7 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
       'Tem certeza que deseja cancelar?',
       [
         { text: 'Não', style: 'cancel' },
-        { text: 'Sim', onPress: () => navigation.goBack() }, // Retorna à página anterior
+        { text: 'Sim', onPress: () => navigation.goBack() },
       ],
     );
   };
@@ -126,14 +124,9 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const handleTelasSelect = (tela: string) => {
-    setSelectedTelas((prev) =>
-      prev.includes(tela) ? prev.filter((item) => item !== tela) : [...prev, tela]
-    );
-  };
 
   const formatCpf = (text: string) => {
-    const onlyNumbers = text.replace(/\D/g, '').slice(0, 11); // Limita a 11 números
+    const onlyNumbers = text.replace(/\D/g, '').slice(0, 11); // limitar o numero de CPF a 11 números
     const cpfFormatted = onlyNumbers
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1.$2')
@@ -142,13 +135,13 @@ const AdicionarColaborador: React.FC<Props> = ({ navigation }) => {
   };
 
   const formatPhone = (text: string) => {
-    let onlyNumbers = text.replace(/\D/g, '').slice(0, 11); // Limita a 11 números
+    let onlyNumbers = text.replace(/\D/g, '').slice(0, 11); // Limita a 11 números de telefone 
     if (onlyNumbers.length > 2 && onlyNumbers[2] !== '9') {
       onlyNumbers = onlyNumbers.slice(0, 2) + '9' + onlyNumbers.slice(2); // Adiciona o '9' após o DDD se necessário
     }
     const phoneFormatted = onlyNumbers
       .replace(/(\d{2})(\d)/, '($1) $2') // Adiciona parênteses em torno do DDD
-      .replace(/(\d{5})(\d{4})$/, '$1-$2'); // Adiciona o hífen no final
+      .replace(/(\d{5})(\d{4})$/, '$1-$2'); // Adiciona o hífen no meio
     setPhone(phoneFormatted);
   };
 

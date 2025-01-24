@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Platform, Modal, View, Text, TouchableOpacity } from 'react-native';
+import { Alert, Platform, Modal, View, Text, } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {
@@ -186,7 +186,7 @@ const Validade: React.FC<Props> = ({ navigation }) => {
           <Input
             placeholder="Estado *"
             value={estado}
-            onChangeText={setEstado} // Permite ao usuário alterar o estado
+            onChangeText={setEstado} 
           />
           {/* Botão para abrir o calendário */}
           <DateButton onPress={() => setShowDatePicker(true)}>

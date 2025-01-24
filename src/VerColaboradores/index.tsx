@@ -102,7 +102,7 @@ const VerColaboradores: React.FC<Props> = ({ navigation }) => {
         if (response.success) {
           Alert.alert('Sucesso', 'Dados do colaborador atualizados com sucesso.');
           setEditModalVisible(false);
-          loadCollaborators(); // Atualiza a lista
+          loadCollaborators(); 
         } else {
           Alert.alert('Erro', 'Não foi possível atualizar o colaborador.');
         }

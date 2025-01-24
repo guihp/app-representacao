@@ -14,9 +14,9 @@ import {
 } from './menuStyles';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../routes/types';
-import { useDispatch, useSelector } from 'react-redux'; // Importa useSelector para acessar o Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/actions/userActions';
-import { RootState } from '../../redux/store'; // Importa o estado global
+import { RootState } from '../../redux/store';
 
 type MenuProps = {
   onClose: () => void;

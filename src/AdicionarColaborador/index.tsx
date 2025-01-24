@@ -17,7 +17,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Collaborators'>;
 
 const ColaboradoresScreen: React.FC<Props> = ({ navigation }) => {
   const handleBack = () => {
-    navigation.goBack(); // Volta para a tela anterior
+    navigation.goBack();
   };
 
   const handleNavigateToViewColaboradores = () => {

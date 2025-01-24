@@ -66,9 +66,9 @@ const LoginScreen = () => {
       }
 
       if (user.cargo === 'Promotor') {
-        navigation.navigate('Home'); // Tela para promotores
+        navigation.navigate('Home'); 
       } else {
-        navigation.navigate('HomeGerente'); // Tela para gerentes
+        navigation.navigate('HomeGerente');
       }
 
       Alert.alert('Sucesso', 'Login realizado com sucesso!');

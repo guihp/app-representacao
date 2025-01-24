@@ -57,7 +57,7 @@ export const InputField = styled.TextInput`
   padding: 10px 15px;
   font-size: 16px;
   margin-bottom: 15px;
-  elevation: 3; /* Sombra no Android */
+  elevation: 3;
 `;
 
 // Botão para capturar localização

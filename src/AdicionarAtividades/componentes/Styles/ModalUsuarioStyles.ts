@@ -5,7 +5,7 @@ export const ModalContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro com transparência */
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 // Conteúdo principal do modal

@@ -87,9 +87,9 @@ export const CardListContainer = styled.ScrollView`
 export const RouteCard = styled.TouchableOpacity`
   background-color: #fff;
   border-radius: 10px;
-  padding: 20px; /* Espaçamento aumentado */
-  margin-bottom: 15px; /* Espaçamento entre os cards */
-  elevation: 3; /* Sombra no Android */
+  padding: 20px; 
+  margin-bottom: 15px;
+  elevation: 3; 
 `;
 
 // Texto do título do card
@@ -112,7 +112,7 @@ export const MonthTitle = styled.Text`
   font-weight: bold;
   color: #333;
   text-align: center;
-  margin-bottom: 14px; /* Espaçamento entre o mês e a barra de navegação */
+  margin-bottom: 14px; 
   margin-top: 14px;
 `;
 

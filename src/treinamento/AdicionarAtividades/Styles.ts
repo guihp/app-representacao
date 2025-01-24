@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { Platform } from 'react-native';
 
 // Fundo para o modal/popup
 export const Overlay = styled.View`
@@ -20,7 +19,7 @@ export const PopupContainer = styled.View`
   shadow-opacity: 0.25;
   shadow-radius: 3.84px;
   elevation: 5;
-  align-self: center; /* Garante o alinhamento horizontal */
+  align-self: center;
 `;
 // Cabeçalho do popup
 export const PopupHeader = styled.View`

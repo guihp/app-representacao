@@ -10,7 +10,7 @@ export const Overlay = styled.View`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-// Contêiner do menu lateral
+// Container do menu lateral
 export const MenuContainer = styled.View`
   position: absolute;
   top: 0;
@@ -21,8 +21,8 @@ export const MenuContainer = styled.View`
   padding: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para o menu */
-  elevation: 5; /* Sombra no Android */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  elevation: 5;
 `;
 
 // Header do menu
@@ -71,13 +71,13 @@ export const MenuText = styled.Text`
   font-weight: bold;
 `;
 
-// Contêiner do lado esquerdo com o ícone e texto
+// Container do lado esquerdo com o ícone e texto
 export const MenuItemLeft = styled.View`
   flex-direction: row;
   align-items: center;
 `;
 
-// Contêiner do lado direito (sinal de ">" no final)
+// Container do lado direito (sinal de ">" no final)
 export const MenuItemRight = styled.View`
   justify-content: center;
   align-items: center;

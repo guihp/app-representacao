@@ -8,7 +8,6 @@ import {
   HeaderSubtitle,
   ConfirmationText,
   LocationName,
-  LocationAddress,
   ActionButton,
   ActionButtonText,
   CancelButton,
@@ -40,15 +39,15 @@ const CheckInScreen: React.FC<Props> = ({ navigation }) => {
   }, [atividades, userId]);
 
   const handleCheckIn = () => {
-    navigation.navigate('MainIndustries'); // Navega para a tela de chekin
+    navigation.navigate('MainIndustries');
   };
 
   const handleCancel = () => {
-    navigation.navigate('Route'); // Navega para a tela de roteiro
+    navigation.navigate('Route');
   };
 
   const handleJustify = () => {
-    navigation.navigate('Justification'); // Navega para a tela de justificativa
+    navigation.navigate('Justification');
   };
 
   return (

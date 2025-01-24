@@ -93,7 +93,7 @@ const ModalUsuarios: React.FC<ModalUsuariosProps> = ({
                   value={searchText}
                   onChangeText={setSearchText}
                 />
-                              {/* Botão de fechar */}
+              {/* Botão de fechar */}
               <CloseButton onPress={onClose}>
                 <Icon name="close" size={24} color="#333" />
               </CloseButton>

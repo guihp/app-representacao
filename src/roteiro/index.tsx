@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Alert, Modal } from 'react-native';
+import { View, Alert, } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import {
   HeaderContainer,
   HeaderTitle,
   BackIcon,
-  FilterIcon,
   DateNavigationContainer,
   DateArrowButton,
   DateButton,
@@ -16,14 +15,6 @@ import {
   RouteCard,
   CardTitle,
   CardDetails,
-  PopupOverlay,
-  PopupContent,
-  PopupHeader,
-  PopupCloseButton,
-  PopupTitle,
-  FilterOption,
-  FilterOptionText,
-  ToggleSwitch,
 } from './roteirostyles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
@@ -35,12 +26,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Route'>;
 
 const RouteScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [filters, setFilters] = useState({
-    todos: true,
-    concluidos: false,
-    emProgresso: false,
-    pendente: false,
-  });
 
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.user); // Usuário logado
@@ -86,18 +71,6 @@ const RouteScreen: React.FC<Props> = ({ navigation }) => {
     setSelectedDate(day);
   };
 
-  const handleFilterChange = (key: keyof typeof filters) => {
-    setFilters((prevFilters) => {
-      const updatedFilters = { ...prevFilters, [key]: !prevFilters[key] };
-      if (key === 'todos' && updatedFilters.todos) {
-        return { todos: true, concluidos: false, emProgresso: false, pendente: false };
-      }
-      if (key !== 'todos' && updatedFilters[key]) {
-        return { ...updatedFilters, todos: false };
-      }
-      return updatedFilters;
-    });
-  };
 
   const handleHome = () => {
     navigation.navigate('Home');

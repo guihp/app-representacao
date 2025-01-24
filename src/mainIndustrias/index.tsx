@@ -17,7 +17,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../routes/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
-import { updateIndustryStatus } from '../redux/actions/industriaActions';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MainIndustries'>;
 
@@ -36,13 +35,13 @@ const MainIndustriesScreen: React.FC<Props> = ({ navigation }) => {
       .map((atividade) => ({
         id: atividade.id,
         name: atividade.industria || 'Indústria não especificada',
-        status: atividade.status || 'incompleto', // Pega o status do Redux ou define como 'incompleto'
+        status: atividade.status || 'incompleto',
       }));
     setIndustries(filteredIndustries);
   }, [atividades, userId]);
 
   const handleBack = () => {
-    navigation.goBack(); // Volta para a tela anterior
+    navigation.goBack(); 
   };
 
   const navigateToActivityPage = (industry: any) => {

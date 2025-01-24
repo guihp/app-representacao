@@ -3,7 +3,6 @@ import { Alert } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import ImageResizer from 'react-native-image-resizer';
 import ModalSelector from 'react-native-modal-selector';
 import {
   Container,
@@ -51,7 +50,7 @@ const FazerPesquisa: React.FC = ({ navigation }: any) => {
 
     const result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
-      quality: 0.3, // Reduzir o tamanho da imagem
+      quality: 0.3,
     });
 
     if (!result.canceled && result.assets && result.assets.length > 0) {
@@ -63,9 +62,9 @@ const FazerPesquisa: React.FC = ({ navigation }: any) => {
   const resizeImage = async (uri: string) => {
     try {
       const manipulatedImage = await ImageManipulator.manipulateAsync(
-        uri, // Caminho da imagem original
-        [{ resize: { width: 800, height: 600 } }], // Nova largura
-        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }, // Nova altura
+        uri,
+        [{ resize: { width: 800, height: 600 } }], // Altura e largura
+        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }, 
       );
       return manipulatedImage.uri; // Retorna o caminho da imagem redimensionada
     } catch (error) {

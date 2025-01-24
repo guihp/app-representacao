@@ -66,7 +66,7 @@ const ModalSupermercados: React.FC<ModalSupermercadosProps> = ({
   const renderSupermarket = ({ item }: { item: store }) => (
     <CardContainer onPress={() => onSelectLoja(item)}>
       <ProfileImage
-        source={require('../../assets/images/loja.png')} // Substituir imagem futuramente
+        source={require('../../assets/images/loja.png')}
       />
       <CardContent>
         <CollaboratorName>{item.Nome}</CollaboratorName>

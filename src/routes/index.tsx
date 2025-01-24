@@ -21,7 +21,7 @@ import Validade from '../Validade';
 import MetasPage from '../Metas';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-// Definindo todas as rotas, incluindo a nova tela
+// Definindo todas as rotas
 type RootStackParamList = {
   Login: undefined;
   Home: undefined;

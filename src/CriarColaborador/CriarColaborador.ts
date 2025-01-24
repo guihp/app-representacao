@@ -73,28 +73,28 @@ export const ModalContainer = styled.View`
 `;
 
 export const ModalContent = styled.View`
-  width: 90%; /* Modal mais largo */
+  width: 90%;
   background-color: white;
   padding: 30px;
   border-radius: 10px;
 `;
 
 export const ModalTitle = styled.Text`
-  font-size: 22px; /* Título maior para melhor visibilidade */
+  font-size: 22px; 
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
 `;
 
 export const ModalText = styled.Text`
-  font-size: 20px; /* Maior visibilidade para o conteúdo */
+  font-size: 20px; 
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
 `;
 
 export const ModalButtonsContainer = styled.View`
-  flex-direction: row; /* Botões lado a lado */
+  flex-direction: row; 
   justify-content: space-between;
   margin-top: 20px;
 `;
@@ -103,9 +103,9 @@ export const ModalButtonConfirm = styled.TouchableOpacity<{ backgroundColor?: st
   background-color: ${({ backgroundColor }) => backgroundColor || '#ccc'};
   padding: 15px 25px;
   border-radius: 8px;
-  flex: 1; /* Botões com tamanhos iguais */
+  flex: 1;
   align-items: center;
-  margin: 0 10px; /* Espaçamento entre os botões */
+  margin: 0 10px;
 `;
 
 export const ModalButtonTextConfirm = styled.Text`

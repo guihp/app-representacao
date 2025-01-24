@@ -6,7 +6,7 @@ export const Container = styled.View`
   background-color: #f5f5f5;
   justify-content: flex-start; /* Alinha os elementos do topo para baixo */
   align-items: center;
-  padding-top: 25px; /* Espaçamento do topo */
+  padding-top: 25px;
 `;
 
 // Texto do cabeçalho
@@ -80,7 +80,7 @@ export const CancelButton = styled.TouchableOpacity`
   border: 1px solid #ff7e5f;
   padding: 15px 20px;
   border-radius: 30px;
-  margin-vertical: 10px; /* Espaçamento vertical entre os botões */
+  margin-vertical: 10px;
   width: 80%;
   align-items: center;
 `;

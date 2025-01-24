@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
-import { Platform, StatusBar } from 'react-native';
+
 
 // Container principal da página
 export const Container = styled.View`
   flex: 1;
-  background-color: #f9f9f9; /* Fundo cinza claro para destacar os cards */
+  background-color: #f9f9f9; 
 `;
 
 // Cabeçalho com título e botão de voltar
@@ -58,7 +58,7 @@ export const TrainingCard = styled.View`
   shadow-offset: 0px 2px;
   shadow-opacity: 0.2;
   shadow-radius: 3.5px;
-  border: 1px solid #e6e6e6; /* Borda sutil */
+  border: 1px solid #e6e6e6; 
 `;
 
 // Nome do treinamento
@@ -66,18 +66,18 @@ export const TrainingName = styled.Text`
   font-size: 16px;
   font-weight: bold;
   color: #333333;
-  flex: 1; /* Garante que o nome ocupe o espaço disponível */
+  flex: 1; 
 `;
 
 // Botão de ação (PDF ou link do vídeo) com ícone e texto
 export const ActionButton = styled.TouchableOpacity`
-  flex-direction: row; /* Ícone ao lado do texto */
+  flex-direction: row; 
   background-color: #ff7e5f;
   padding: 8px 12px;
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  min-width: 110px; /* Garante tamanho adequado */
+  min-width: 110px; 
 `;
 
 // Texto do botão de ação
@@ -85,7 +85,7 @@ export const ActionButtonText = styled.Text`
   font-size: 14px;
   font-weight: bold;
   color: #ffffff;
-  margin-left: 8px; /* Espaço entre ícone e texto */
+  margin-left: 8px;
 `;
 
 // Botão flutuante para adicionar treinamentos

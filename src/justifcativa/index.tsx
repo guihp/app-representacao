@@ -39,11 +39,11 @@ const JustificationScreen: React.FC<Props> = ({ navigation }) => {
       return;
     }
     Alert.alert('Enviado', 'Justificativa enviada com sucesso!');
-    navigation.goBack(); // Retorna para a tela anterior após envio
+    navigation.goBack(); 
   };
 
   const handleHome = () => {
-    navigation.navigate('Home'); // Navega para a tela de justificativa
+    navigation.navigate('Home'); 
   };
 
 

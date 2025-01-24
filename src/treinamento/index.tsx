@@ -147,7 +147,7 @@ const TreinamentoScreen: React.FC = ({ navigation }: any) => {
         <AddActivityPopup
           user={user}
           visible={isPopupVisible}
-          onClose={() => setIsPopupVisible(false)} // Fecha o popup
+          onClose={() => setIsPopupVisible(false)} 
           onConfirm={(data) => {
             console.log('Atividade adicionada:', data);
             setIsPopupVisible(false);

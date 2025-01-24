@@ -16,8 +16,8 @@ export const HeaderContainer = styled.View`
   justify-content: space-between;
   padding: 0 20px;
   padding-top: 40px;
-  elevation: 4; /* Sombra no Android */
-  shadow-color: #000; /* Sombra no iOS */
+  elevation: 4; 
+  shadow-color: #000;
   shadow-offset: 0px 2px;
   shadow-opacity: 0.2;
   shadow-radius: 3.5px;
@@ -40,7 +40,7 @@ export const HeaderTitle = styled.Text`
   font-family: 'Poppins_700Bold';
 `;
 
-// Contêiner para as opções
+// Container para as opções
 export const OptionsContainer = styled.View`
   flex: 1;
   flex-direction: row;
@@ -52,14 +52,14 @@ export const OptionsContainer = styled.View`
 
 // Botão de cada opção
 export const OptionButton = styled.TouchableOpacity`
-  width: 45%; /* Para garantir que eles fiquem lado a lado */
-  aspect-ratio: 1; /* Quadrado */
+  width: 45%;
+  aspect-ratio: 1;
   border-radius: 15px;
   background-color: #fff;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  elevation: 3; /* Sombra no Android */
+  elevation: 3; 
   shadow-color: #000;
   shadow-opacity: 0.1;
   shadow-radius: 5px;

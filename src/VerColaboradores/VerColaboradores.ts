@@ -160,7 +160,7 @@ export const EditModalButtonsContainer = styled.View`
 
 export const EditModalButton = styled.TouchableOpacity`
   flex: 1;
-  background-color: #4caf50; /* Botão de confirmação verde */
+  background-color: #4caf50; 
   padding: 10px 15px;
   margin: 0 5px;
   border-radius: 8px;
@@ -169,7 +169,7 @@ export const EditModalButton = styled.TouchableOpacity`
 
 export const CancelModalButton = styled.TouchableOpacity`
   flex: 1;
-  background-color: #f44336; /* Botão de cancelamento vermelho */
+  background-color: #f44336; 
   padding: 10px 15px;
   margin: 0 5px;
   border-radius: 8px;

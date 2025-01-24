@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { Text, Alert } from 'react-native';
 import {
   PopupContainer,
   PopupHeader,

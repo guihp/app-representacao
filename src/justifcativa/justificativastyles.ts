@@ -12,8 +12,8 @@ export const Container = styled.View`
 // Cabeçalho com cor fixa
 export const HeaderContainer = styled.View`
   width: 100%;
-  height: 100px; /* Altura do cabeçalho */
-  background-color: #ff7e5f; /* Cor fixa */
+  height: 100px; 
+  background-color: #ff7e5f;
   flex-direction: row;
   align-items: center;
   justify-content: center;

@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { Picker as RNPicker } from '@react-native-picker/picker';
 
 interface ActionButtonProps {
     confirm?: boolean;
@@ -86,7 +85,7 @@ export const ActionButtonText = styled.Text`
   font-weight: bold;
 `;
 
-// Contêiner para a foto tirada
+// Container para a foto tirada
 export const PhotoContainer = styled.View`
   margin: 20px auto;
   width: 90%;

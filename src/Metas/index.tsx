@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import { ProgressBar } from 'react-native-paper'; // Biblioteca para barra de progresso
+import { ProgressBar } from 'react-native-paper';
 import {
   Container,
   Header,
