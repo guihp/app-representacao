@@ -19,11 +19,14 @@ import HomeGerente from '../home/MenuGerente';
 import DegustacaoPage from '../Degustacao';
 import Validade from '../Validade';
 import MetasPage from '../Metas';
+import Login from '../login';
+import StoreRegister from '../StoreRegister';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Definindo todas as rotas
 type RootStackParamList = {
   Login: undefined;
+  LoginCerto: undefined;
   Home: undefined;
   Route: undefined;
   CheckIn: undefined;
@@ -41,6 +44,7 @@ type RootStackParamList = {
   DegustacaoPage: { industryName: string; industryId: string };
   Validade: undefined;
   MetasPage: undefined;
+  StoreRegister: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
@@ -54,6 +58,11 @@ const AppRoutes = () => {
         <Stack.Screen
           name="Login" // Nome da nova rota
           component={LoginScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="LoginCerto" // Nome da nova rota
+          component={Login} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen
@@ -104,6 +113,11 @@ const AppRoutes = () => {
         <Stack.Screen
           name="CadastrarLoja" // Nome da nova rota
           component={CadastroLoja} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="StoreRegister" // Nome da nova rota
+          component={StoreRegister} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen

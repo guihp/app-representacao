@@ -59,6 +59,17 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
     navigation.navigate('Validade');
   };
 
+  const handlValLogin = () => {
+    onClose();
+    navigation.navigate('LoginCerto');
+  };
+
+  const handlStore = () => {
+    onClose();
+    navigation.navigate('StoreRegister');
+  };
+
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -162,6 +173,30 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
               <Icon name="calendar-alert" size={24} color="#FF7E5F" />
             </MenuItemIcon>
             <MenuText>Validade</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
+
+        <MenuItem onPress={handlValLogin}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <Icon name="calendar-alert" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>LoginTeste</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
+
+        <MenuItem onPress={handlStore}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <Icon name="calendar-alert" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>Cadastrar Loja Teste</MenuText>
           </MenuItemLeft>
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />

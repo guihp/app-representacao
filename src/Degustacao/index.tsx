@@ -33,7 +33,7 @@ type Props = {
 };
 
 const DegustacaoPage: React.FC<Props> = ({ route, navigation }) => {
-  const [photosBefore, setPhotosBefore] = useState<string | null>(null);
+  const [photos, setPhotos] = useState<string | null>(null);
   const { industryName, industryId } = route.params;
   const dispatch = useDispatch();
 
@@ -82,12 +82,12 @@ const DegustacaoPage: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const handleSend = async () => {
-    if (!photosBefore) {
+    if (!photos) {
       Alert.alert('Erro', 'Você precisa adicionar ao menos uma foto.');
       return;
     }
 
-    const base64Before = await convertUriToBase64(photosBefore);
+    const base64Before = await convertUriToBase64(photos);
 
     if (!base64Before) {
       Alert.alert('Erro', 'Falha ao processar as imagens.');
@@ -131,12 +131,12 @@ const DegustacaoPage: React.FC<Props> = ({ route, navigation }) => {
 
       <ActivitySection>
         <ActivityTitle>Adicionar Foto</ActivityTitle>
-        <PhotoButton onPress={() => handleOpenCamera(setPhotosBefore)}>
+        <PhotoButton onPress={() => handleOpenCamera(setPhotos)}>
           <Icon name="camera" size={48} color="#fff" />
         </PhotoButton>
         <PhotoInfo>
           <PhotoInfoText>
-            Total de fotos: {photosBefore ? '1' : '0'}
+            Total de fotos: {photos ? '1' : '0'}
           </PhotoInfoText>
           <PhotoInfoText>Mínimo de fotos: 1</PhotoInfoText>
         </PhotoInfo>

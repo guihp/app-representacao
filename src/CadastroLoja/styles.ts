@@ -1,6 +1,4 @@
 import styled from 'styled-components/native';
-import { Platform, StatusBar } from 'react-native';
-import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 // Container principal
 export const Container = styled.View`

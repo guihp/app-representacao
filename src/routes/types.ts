@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   Login: undefined;
+  LoginCerto: undefined;
   Home: undefined;
   Route: undefined;
   CheckIn: undefined;
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   DegustacaoPage: { industryName: string; industryId: string };
   Validade: undefined;
   MetasPage: undefined;
+  StoreRegister: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
