@@ -21,6 +21,8 @@ export type RootStackParamList = {
   Validade: undefined;
   MetasPage: undefined;
   StoreRegister: undefined;
+  Training: undefined;
+  Queries: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;

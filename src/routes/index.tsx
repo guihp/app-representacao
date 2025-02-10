@@ -21,6 +21,8 @@ import Validade from '../Validade';
 import MetasPage from '../Metas';
 import Login from '../login';
 import StoreRegister from '../StoreRegister';
+import Training from '../Training'
+import Queries from '../Queries';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Definindo todas as rotas
@@ -45,6 +47,8 @@ type RootStackParamList = {
   Validade: undefined;
   MetasPage: undefined;
   StoreRegister: undefined;
+  Training: undefined;
+  Queries: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
@@ -111,6 +115,11 @@ const AppRoutes = () => {
           options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen
+          name="Queries" // Nome da nova rota
+          component={Queries} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
           name="CadastrarLoja" // Nome da nova rota
           component={CadastroLoja} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
@@ -123,6 +132,11 @@ const AppRoutes = () => {
         <Stack.Screen
           name="TreinamentoScreen" // Nome da nova rota
           component={TreinamentoScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="Training" // Nome da nova rota
+          component={Training} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen

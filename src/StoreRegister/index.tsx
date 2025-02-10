@@ -69,12 +69,8 @@ const StoreRegister = ({ navigation }: any) => {
 
         <HeaderSearch>
 
-            <ProfileContainer>
-                <ProfileImage/>
-            </ProfileContainer>
-
             <MenuItemIcon>
-                <Icon name="magnify" size={34} color="#FF7E5F" />
+                <Icon name="menu" size={34} color="#313131" />
             </MenuItemIcon>
 
         </HeaderSearch>

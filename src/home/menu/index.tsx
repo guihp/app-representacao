@@ -69,6 +69,16 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
     navigation.navigate('StoreRegister');
   };
 
+  const handlTraining = () => {
+    onClose();
+    navigation.navigate('Training');
+  };
+
+  const handlQueries = () => {
+    onClose();
+    navigation.navigate('Queries');
+  };
+
 
 
   const handleLogout = () => {
@@ -202,6 +212,32 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
             <Icon name="chevron-right" size={24} color="#333" />
           </MenuItemRight>
         </MenuItem>
+
+        <MenuItem onPress={handlTraining}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <Icon name="calendar-alert" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>Treinamento Teste</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
+
+        
+        <MenuItem onPress={handlQueries}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <Icon name="calendar-alert" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>Pesquisas Teste</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
+
 
 
 
