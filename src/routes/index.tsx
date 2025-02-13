@@ -23,6 +23,7 @@ import Login from '../login';
 import StoreRegister from '../StoreRegister';
 import Training from '../Training'
 import Queries from '../Queries';
+import TelaHome from '../TelaHome';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Definindo todas as rotas
@@ -49,6 +50,7 @@ type RootStackParamList = {
   StoreRegister: undefined;
   Training: undefined;
   Queries: undefined;
+  TelaHome: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
@@ -72,6 +74,11 @@ const AppRoutes = () => {
         <Stack.Screen
           name="Home" // Nome da nova rota
           component={HomeScreen} // Componente da nova tela
+          options={{ headerShown: false }} // Sem cabeçalho
+        />
+        <Stack.Screen
+          name="TelaHome" // Nome da nova rota
+          component={TelaHome} // Componente da nova tela
           options={{ headerShown: false }} // Sem cabeçalho
         />
         <Stack.Screen

@@ -79,6 +79,10 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
     navigation.navigate('Queries');
   };
 
+  const handlHome = () => {
+    onClose();
+    navigation.navigate('TelaHome');
+  };
 
 
   const handleLogout = () => {
@@ -100,7 +104,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuIcon>
         </MenuHeader>
 
-        <MenuItem onPress={() => alert('Sincronização')}>
+        {/* <MenuItem onPress={() => alert('Sincronização')}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="sync" size={24} color="#FF7E5F" />
@@ -110,9 +114,9 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />
           </MenuItemRight>
-        </MenuItem>
+        </MenuItem> */}
 
-        <MenuItem onPress={handleTrainer}>
+        {/* <MenuItem onPress={handleTrainer}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="book-open-outline" size={24} color="#FF7E5F" />
@@ -122,9 +126,9 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />
           </MenuItemRight>
-        </MenuItem>
+        </MenuItem> */}
 
-        <MenuItem onPress={handleMark}>
+        {/* <MenuItem onPress={handleMark}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="cart" size={24} color="#FF7E5F" />
@@ -134,7 +138,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />
           </MenuItemRight>
-        </MenuItem>
+        </MenuItem> */}
 
         {/* Exibe apenas para usuários que não são promotores */}
         {userRole !== 'Promotor' && (
@@ -165,7 +169,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </>
         )}
 
-        <MenuItem onPress={handleSearch}>
+        {/* <MenuItem onPress={handleSearch}>
           <MenuItemLeft>
             <MenuItemIcon>
               <Icon name="magnify" size={24} color="#FF7E5F" />
@@ -175,7 +179,7 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           <MenuItemRight>
             <Icon name="chevron-right" size={24} color="#333" />
           </MenuItemRight>
-        </MenuItem>
+        </MenuItem> */}
 
         <MenuItem onPress={handlValidade}>
           <MenuItemLeft>
@@ -238,6 +242,18 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
           </MenuItemRight>
         </MenuItem>
 
+
+        <MenuItem onPress={handlHome}>
+          <MenuItemLeft>
+            <MenuItemIcon>
+              <Icon name="calendar-alert" size={24} color="#FF7E5F" />
+            </MenuItemIcon>
+            <MenuText>HOME Teste</MenuText>
+          </MenuItemLeft>
+          <MenuItemRight>
+            <Icon name="chevron-right" size={24} color="#333" />
+          </MenuItemRight>
+        </MenuItem>
 
 
 

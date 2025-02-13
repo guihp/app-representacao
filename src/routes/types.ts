@@ -23,6 +23,7 @@ export type RootStackParamList = {
   StoreRegister: undefined;
   Training: undefined;
   Queries: undefined;
+  TelaHome: undefined;
 };
 
 export type NavigationProps = NativeStackScreenProps<RootStackParamList>;
